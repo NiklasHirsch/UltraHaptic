@@ -6,24 +6,7 @@ using Leap.Unity;
 public class FingertipCollision : MonoBehaviour
 {
     public CollisionToSensation collisionToSensation;
-
-    public RigidHand leftRigidHand;
-    public RigidHand rightRigidHand;
-
-    public float minXY = -0.083f;
-    public float maxXY = 0.083f;
-
-    private List<GameObject> _activeTriggerObjects = new List<GameObject>();
-    private Vector3 _comparePoint = new Vector3(0, 0, 0);
-
-    private Vector3[] sensationPoints = new[] {
-                new Vector3(0,0,0),
-                new Vector3(0,0,0),
-                new Vector3(0,0,0),
-                new Vector3(0,0,0),
-                new Vector3(0,0,0),
-                new Vector3(0,0,0),
-            };
+    public HandleSensation handleSensation;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -31,7 +14,7 @@ public class FingertipCollision : MonoBehaviour
         {
             Debug.Log("Bone triggered");
 
-            _activeTriggerObjects.Add(other.gameObject); //new TriggerObject(other.gameObject)
+            handleSensation.activeTriggerObjects.Add(other.gameObject); //new TriggerObject(other.gameObject)
             collisionToSensation.SetSensationEnabledStatus(true);
         }
     }
@@ -43,22 +26,18 @@ public class FingertipCollision : MonoBehaviour
             //TriggerObject objToRemove = _activeTriggerObjects.Find((x) => x.oGameObject.GetInstanceID() == other.gameObject.GetInstanceID());
             //_activeTriggerObjects.Remove(objToRemove);
 
-            _activeTriggerObjects.Remove(other.gameObject);
+            handleSensation.activeTriggerObjects.Remove(other.gameObject);
 
             Debug.Log("Bone exited");
 
-            if (_activeTriggerObjects.Count <= 0)
+            if (handleSensation.activeTriggerObjects.Count <= 0)
             {
                 collisionToSensation.SetSensationEnabledStatus(false);
             }
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-      
-    }
-
+    /*
 
     private void Update()
     {
@@ -123,82 +102,5 @@ public class FingertipCollision : MonoBehaviour
 
         collisionToSensation.SetPath(sensationPoints);
     }
-
-
-    // --------------------------------------- older Methods ------------------------------------
-
-    private void IterateOverBones(RigidHand hand)
-    {
-        // Iterate through the fingers
-        for (int f = 0; f < hand.fingers.Length; ++f)
-        {
-            var finger = hand.fingers[f];
-
-            if (finger != null)
-            {
-                // Iterate through bones of a finger
-                for (int i = 0; i < finger.bones.Length; ++i)
-                {
-                    if (finger.bones[i] != null)
-                    {
-                        // Set bone dimensions.
-                        CapsuleCollider capsule = finger.bones[i].GetComponent<CapsuleCollider>();
-
-                    }
-                }
-            }
-        }
-    }
-
-    private Vector3 RaycastForFingers(GameObject finger, Collider other)
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(finger.transform.position, finger.transform.forward, out hit))
-        {
-            var hitpoint = hit.point;
-            Debug.Log(finger + ", Point of contact: " + hitpoint);
-
-            var closestPoint = other.ClosestPoint(hit.point);
-            Debug.Log(finger + ", Closest Point: " + closestPoint);
-
-            var result = new Vector3(Mathf.Clamp(closestPoint.x, minXY, maxXY), Mathf.Clamp(closestPoint.y, minXY, maxXY), 0);
-            //Debug.Log("Result Point: " + result);
-
-            return result;
-        }
-        return new Vector3(0, 0, 0);
-    }
-}
-
-public class TriggerObject : MonoBehaviour
-{
-    public GameObject oGameObject;
-    public Vector3 position;
-    public TriggerObject(GameObject oGameObject)
-    {
-        this.oGameObject = oGameObject;
-
-        if (oGameObject.name == "bone3")
-        {
-            calculateNewPositionForTip();
-        } else
-        {
-            position = oGameObject.transform.position;
-        }
-    }
-
-    private void Update()
-    {
-        position = oGameObject.transform.position;
-    }
-
-    private void calculateNewPositionForTip()
-    {
-        CapsuleCollider capsule = oGameObject.GetComponent<CapsuleCollider>();
-        if (capsule != null)
-        {
-            // Update Position
-            position = oGameObject.transform.position + new Vector3(0f, capsule.height / 2f) + capsule.center;
-        }
-    }
+    */
 }

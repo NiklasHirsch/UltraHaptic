@@ -46,12 +46,20 @@ public class CollisionToSensation : MonoBehaviour
     void Update()
     {
         LineRenderer.SetPositions(PolylinePoints());
-        Sensation.Inputs["point0"].Value = Point0.position / scaling_;
-        Sensation.Inputs["point1"].Value = Point1.position / scaling_;
-        Sensation.Inputs["point2"].Value = Point2.position / scaling_;
-        Sensation.Inputs["point3"].Value = Point3.position / scaling_;
-        Sensation.Inputs["point4"].Value = Point4.position / scaling_;
-        Sensation.Inputs["point5"].Value = Point5.position / scaling_;
+        Sensation.Inputs["point0"].Value = ModifyPositionData(Point0.position) / scaling_;
+        Sensation.Inputs["point1"].Value = ModifyPositionData(Point1.position) / scaling_;
+        Sensation.Inputs["point2"].Value = ModifyPositionData(Point2.position) / scaling_;
+        Sensation.Inputs["point3"].Value = ModifyPositionData(Point3.position) / scaling_;
+        Sensation.Inputs["point4"].Value = ModifyPositionData(Point4.position) / scaling_;
+        Sensation.Inputs["point5"].Value = ModifyPositionData(Point5.position) / scaling_;
+    }
+
+    private Vector3 ModifyPositionData(Vector3 point)
+    {
+        Vector3 result = point;
+        result.y = result.z;
+        result.z = 0;
+        return result;
     }
 
     public void SetPath(Vector3[] points)
