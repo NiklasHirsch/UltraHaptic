@@ -1069,7 +1069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5216413981442751972, guid: 458eefb32bbb158468bc39c70c5ff8d8, type: 3}
       propertyPath: Inputs.inputs_.Array.data[24].Value.x
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5216413981442751972, guid: 458eefb32bbb158468bc39c70c5ff8d8, type: 3}
       propertyPath: Inputs.inputs_.Array.data[23].InputGroup

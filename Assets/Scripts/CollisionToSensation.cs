@@ -56,10 +56,12 @@ public class CollisionToSensation : MonoBehaviour
 
     private Vector3 ModifyPositionData(Vector3 point)
     {
+        /*
         Vector3 result = point;
         result.y = result.z;
         result.z = 0;
-        return result;
+        return result;*/
+        return point;
     }
 
     public void SetPath(Vector3[] points)
