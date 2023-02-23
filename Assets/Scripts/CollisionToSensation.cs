@@ -56,12 +56,12 @@ public class CollisionToSensation : MonoBehaviour
 
     private Vector3 ModifyPositionData(Vector3 point)
     {
-        /*
+        
         Vector3 result = point;
         result.y = result.z;
-        result.z = 0;
-        return result;*/
-        return point;
+        //result.z = 0;
+        return result;
+        //return point;
     }
 
     public void SetPath(Vector3[] points)
@@ -76,6 +76,11 @@ public class CollisionToSensation : MonoBehaviour
 
     public void SetSensationEnabledStatus(bool enabled)
     {
-        Sensation.enabled = enabled;
+        if(Sensation.enabled == !enabled)
+        {
+            Sensation.enabled = enabled;
+            //Sensation.Inputs["running"].Value = true;
+        }
+
     }
 }

@@ -33,7 +33,11 @@ public class HandleSensation : MonoBehaviour
 
         SortByDistance();
 
-        UpdateSensation();
+        UpdateSolidSensation();
+
+        UpdateSteamSensation();
+
+        collisionToSensation.SetPath(sensationPoints);
     }
 
     private void SortByDistance()
@@ -63,37 +67,62 @@ public class HandleSensation : MonoBehaviour
         return new Vector3(0, 0, 0);
     }
 
-    private void UpdateSensation()
+    private void UpdateSolidSensation()
     {
         int counter = 1;
 
-        for (int o = 0; o < 6; ++o)
+        for (int i = 0; i < 6; ++i)
         {
             // there are collision points
             if (activeTriggerObjects.Count > 0)
             {
-                if (activeTriggerObjects.Count > o)
+                if (activeTriggerObjects.Count > i)
                 {
-                    sensationPoints[o] = (activeTriggerObjects[o].name == "bone3") ? calculateNewPositionForTip(activeTriggerObjects[o]) : activeTriggerObjects[o].transform.position;
-                    //sensationPoints[o].y = sensationPoints[o].z;
-                    //sensationPoints[o].z = 0;
+                    sensationPoints[i] = (activeTriggerObjects[i].name == "bone3") ? calculateNewPositionForTip(activeTriggerObjects[i]) : activeTriggerObjects[i].transform.position;
                 }
                 else
                 {
-                    sensationPoints[o] = sensationPoints[o - counter];
+                    sensationPoints[i] = sensationPoints[i - counter];
                     counter++;
                 }
             }
             // there are NO collision points
             else
             {
-                sensationPoints[o] = new Vector3(0, 0, 0);
+                sensationPoints[i] = new Vector3(0, 0, 0);
             }
         }
-
-        collisionToSensation.SetPath(sensationPoints);
     }
 
+    private void UpdateSteamSensation()
+    {
+        var zeroVec = new Vector3(0, 0, 0);
+
+        for (int i = 0; i < 6; ++i)
+        {
+            if (sensationPoints[i] != zeroVec)
+            {
+                sensationPoints[i] = ApplyNoise(sensationPoints[i]);
+            }
+        }
+    }
+
+    public float minNoise = -0.005f;
+    public float maxNoise = 0.005f;
+    private Vector3 ApplyNoise(Vector3 point)
+    {
+        Vector3 result = point;
+        result.x += GetRandomNoiseVal();
+        result.y += GetRandomNoiseVal();
+        result.z += GetRandomNoiseVal();
+        
+        return result;
+    }
+
+    private float GetRandomNoiseVal()
+    {
+        return UnityEngine.Random.Range(minNoise, maxNoise);
+    }
 
     // --------------------------------------- older Methods ------------------------------------
 

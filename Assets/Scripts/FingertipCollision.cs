@@ -12,7 +12,7 @@ public class FingertipCollision : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Bone"))
         {
-            Debug.Log("Bone triggered");
+            //Debug.Log("Bone triggered");
 
             handleSensation.activeTriggerObjects.Add(other.gameObject); //new TriggerObject(other.gameObject)
             collisionToSensation.SetSensationEnabledStatus(true);
@@ -28,7 +28,7 @@ public class FingertipCollision : MonoBehaviour
 
             handleSensation.activeTriggerObjects.Remove(other.gameObject);
 
-            Debug.Log("Bone exited");
+            //Debug.Log("Bone exited");
 
             if (handleSensation.activeTriggerObjects.Count <= 0)
             {
