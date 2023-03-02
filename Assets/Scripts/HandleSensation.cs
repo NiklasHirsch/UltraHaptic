@@ -8,12 +8,12 @@ public class HandleSensation : MonoBehaviour
 {
     public CollisionToSensation collisionToSensation;
 
-    #region  Old variables
     public RigidHand leftRigidHand;
     public RigidHand rightRigidHand;
 
-    public float minXY = -0.083f;
-    public float maxXY = 0.083f;
+    #region  Old variables
+    private float minXY = -0.083f;
+    private float maxXY = 0.083f;
     #endregion
 
     [NonSerialized] public List<GameObject> activeTriggerObjects = new List<GameObject>();
@@ -29,7 +29,7 @@ public class HandleSensation : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Objects in List: " + activeTriggerObjects.Count);
+        //Debug.Log("Objects in List: " + activeTriggerObjects.Count);
 
         SortByDistance();
 
@@ -74,10 +74,10 @@ public class HandleSensation : MonoBehaviour
         for (int i = 0; i < 6; ++i)
         {
             // there are collision points
-            if (activeTriggerObjects.Count > 0)
+            if (activeTriggerObjects.Count > 0 && (leftRigidHand.gameObject.activeSelf || rightRigidHand.gameObject.activeSelf))
             {
                 if (activeTriggerObjects.Count > i)
-                {
+                { 
                     sensationPoints[i] = (activeTriggerObjects[i].name == "bone3") ? calculateNewPositionForTip(activeTriggerObjects[i]) : activeTriggerObjects[i].transform.position;
                 }
                 else

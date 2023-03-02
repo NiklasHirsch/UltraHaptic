@@ -56,9 +56,10 @@ public class CollisionToSensation : MonoBehaviour
 
     private Vector3 ModifyPositionData(Vector3 point)
     {
-        
         Vector3 result = point;
+        var yValue = point.y;
         result.y = result.z;
+        result.z = yValue;
         //result.z = 0;
         return result;
         //return point;
