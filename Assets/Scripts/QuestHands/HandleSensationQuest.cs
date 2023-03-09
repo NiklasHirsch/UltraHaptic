@@ -5,7 +5,7 @@ using Leap.Unity;
 using System;
 using UltrahapticsCoreAsset;
 
-public class HandleSensation : MonoBehaviour
+public class HandleSensationQuest : MonoBehaviour
 {
     public CollisionToSensation collisionToSensation;
 
@@ -34,14 +34,15 @@ public class HandleSensation : MonoBehaviour
     private void Update()
     {
         //Debug.Log("Objects in List: " + activeTriggerObjects.Count);
-        if((leftRigidHand.gameObject.activeSelf || rightRigidHand.gameObject.activeSelf))
+        if ((leftRigidHand.gameObject.activeSelf || rightRigidHand.gameObject.activeSelf))
         {
             collisionToSensation.SetSensationEnabledStatus(true);
             SortByDistance();
 
             UpdateSensation();
 
-        } else
+        }
+        else
         {
             collisionToSensation.SetSensationEnabledStatus(false);
             for (int i = 0; i < 6; ++i)
@@ -83,7 +84,8 @@ public class HandleSensation : MonoBehaviour
                     sensationPoints[i] = activeTriggerObjects[i].transform.position;
 
                     // if steam then modify points randomly 
-                    if (_isSteamSensation) {
+                    if (_isSteamSensation)
+                    {
                         UpdateSteamSensation(i);
                     }
                 }
@@ -155,7 +157,7 @@ public class HandleSensation : MonoBehaviour
         result.x += GetRandomNoiseVal();
         result.y += GetRandomNoiseVal();
         result.z += GetRandomNoiseVal();
-        
+
         return result;
     }
 
@@ -234,40 +236,5 @@ public class HandleSensation : MonoBehaviour
             return result;
         }
         return new Vector3(0, 0, 0);
-    }
-}
-
-
-public class TriggerObject : MonoBehaviour
-{
-    public GameObject oGameObject;
-    public Vector3 position;
-    public TriggerObject(GameObject oGameObject)
-    {
-        this.oGameObject = oGameObject;
-
-        if (oGameObject.name == "bone3")
-        {
-            calculateNewPositionForTip();
-        }
-        else
-        {
-            position = oGameObject.transform.position;
-        }
-    }
-
-    private void Update()
-    {
-        position = oGameObject.transform.position;
-    }
-
-    private void calculateNewPositionForTip()
-    {
-        CapsuleCollider capsule = oGameObject.GetComponent<CapsuleCollider>();
-        if (capsule != null)
-        {
-            // Update Position
-            position = oGameObject.transform.position + new Vector3(0f, capsule.height / 2f) + capsule.center;
-        }
     }
 }

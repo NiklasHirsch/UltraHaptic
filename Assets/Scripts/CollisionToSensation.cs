@@ -60,7 +60,7 @@ public class CollisionToSensation : MonoBehaviour
         var yValue = point.y;
         result.y = result.z;
         result.z = yValue;
-        //result.z = 0;
+        result.z = result.z; //- 0.2f;// value is the height of the gameobject
         return result;
         //return point;
     }
