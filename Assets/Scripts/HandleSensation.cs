@@ -89,7 +89,17 @@ public class HandleSensation : MonoBehaviour
                 }
                 else
                 {
-                    sensationPoints[i] = sensationPoints[i - counter];
+                    if (activeTriggerObjects.Count > 1)
+                    {
+                        // draw a sensation line between the last two point back and forth
+                        sensationPoints[i] = sensationPoints[i - counter - (counter % 2)];
+                        
+                    } else
+                    {
+                        // if only 1 sensation collision is present then apply a small movement to the secon point to get a small sensation line to feel the sensation 
+                        sensationPoints[i] = sensationPoints[0] - new Vector3(0, -0.002f, 0); //ApplyNoise(sensationPoints[0]);
+                    }
+                    //sensationPoints[i] = sensationPoints[i - counter];
                     counter++;
                 }
             }
@@ -163,6 +173,7 @@ public class HandleSensation : MonoBehaviour
     {
         return UnityEngine.Random.Range(minNoise, maxNoise);
     }
+
 
     // --------------------------------------- older Methods ------------------------------------
 
