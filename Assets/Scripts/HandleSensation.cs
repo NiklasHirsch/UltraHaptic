@@ -97,7 +97,8 @@ public class HandleSensation : MonoBehaviour
                     } else
                     {
                         // if only 1 sensation collision is present then apply a small movement to the secon point to get a small sensation line to feel the sensation 
-                        sensationPoints[i] = sensationPoints[0] - new Vector3(0, -0.002f, 0); //ApplyNoise(sensationPoints[0]);
+                        sensationPoints[i] = sensationPoints[0] + activeTriggerObjects[0].transform.forward * 0.01f; //sensationPoints[0] - new Vector3(0, -0.002f, 0); //ApplyNoise(sensationPoints[0]);
+                        //sensationPoints[0] = sensationPoints[0] - activeTriggerObjects[0].transform.forward * 0.01f;
                     }
                     //sensationPoints[i] = sensationPoints[i - counter];
                     counter++;

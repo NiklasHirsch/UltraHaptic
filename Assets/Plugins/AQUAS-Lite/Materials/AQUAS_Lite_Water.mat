@@ -75,10 +75,10 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _Density: 0.24
+    - _Density: 0.403
     - _DepthTransparency: 0.2
     - _DetailNormalMapScale: 1
-    - _DistanceFade: 0.1
+    - _DistanceFade: 1
     - _Distortion: 0.119
     - _DstBlend: 0
     - _EnableCustomFog: 0
@@ -130,6 +130,6 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _FogColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MainColor: {r: 0.10450332, g: 0.9716981, b: 0.9110441, a: 1}
+    - _MainColor: {r: 0.10588237, g: 0.71827537, b: 0.972549, a: 1}
     - _SpecularColor: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
   m_BuildTextureStacks: []
