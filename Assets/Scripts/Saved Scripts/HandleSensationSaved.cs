@@ -5,7 +5,7 @@ using Leap.Unity;
 using System;
 using UltrahapticsCoreAsset;
 
-public class HandleSensation : MonoBehaviour
+public class HandleSensationSaved : MonoBehaviour
 {
     public CollisionToSensation collisionToSensation;
 
@@ -19,8 +19,8 @@ public class HandleSensation : MonoBehaviour
     private float minXY = -0.083f;
     private float maxXY = 0.083f;
     #endregion
-    
-    [NonSerialized] public List<TriggerObject> activeTriggerObjects = new List<TriggerObject>();
+
+    [NonSerialized] public List<GameObject> activeTriggerObjects = new List<GameObject>();
     private Vector3 _comparePoint = new Vector3(0, 0, 0);
     private Vector3[] sensationPoints = new[] {
                 new Vector3(0,0,0),
@@ -34,10 +34,9 @@ public class HandleSensation : MonoBehaviour
     private void Update()
     {
         //Debug.Log("Objects in List: " + activeTriggerObjects.Count);
-        if((leftRigidHand.gameObject.activeSelf || rightRigidHand.gameObject.activeSelf) && activeTriggerObjects.Count > 0)
+        if((leftRigidHand.gameObject.activeSelf || rightRigidHand.gameObject.activeSelf))
         {
             collisionToSensation.SetSensationEnabledStatus(true);
-
             SortByDistance();
 
             UpdateSensation();
@@ -59,15 +58,13 @@ public class HandleSensation : MonoBehaviour
         activeTriggerObjects.Sort(CompareDistanceToPoint);
     }
 
-    private int CompareDistanceToPoint(TriggerObject a, TriggerObject b)
+    private int CompareDistanceToPoint(GameObject a, GameObject b)
     {
         // check if it is a fingertip bone
         //   true: then use the very tip
         //   false: use the middle point
-        //float squaredRangeA = (a.colliderGameObject.name == "bone3") ? (CalculateNewPositionForTip(a.colliderGameObject) - _comparePoint).sqrMagnitude : (a.colliderGameObject.transform.position - _comparePoint).sqrMagnitude;
-        //float squaredRangeB = (b.colliderGameObject.name == "bone3") ? (CalculateNewPositionForTip(b.colliderGameObject) - _comparePoint).sqrMagnitude : (b.colliderGameObject.transform.position - _comparePoint).sqrMagnitude;
-        float squaredRangeA = (a.colliderGameObject.name == "bone3") ? (a.colliderGameObject.transform.position - _comparePoint).sqrMagnitude : (a.colliderGameObject.transform.position - _comparePoint).sqrMagnitude;
-        float squaredRangeB = (b.colliderGameObject.name == "bone3") ? (b.colliderGameObject.transform.position - _comparePoint).sqrMagnitude : (b.colliderGameObject.transform.position - _comparePoint).sqrMagnitude;
+        float squaredRangeA = (a.name == "bone3") ? (CalculateNewPositionForTip(a) - _comparePoint).sqrMagnitude : (a.transform.position - _comparePoint).sqrMagnitude;
+        float squaredRangeB = (b.name == "bone3") ? (CalculateNewPositionForTip(b) - _comparePoint).sqrMagnitude : (b.transform.position - _comparePoint).sqrMagnitude;
         return squaredRangeA.CompareTo(squaredRangeB);
     }
     private void UpdateSensation()
@@ -81,8 +78,9 @@ public class HandleSensation : MonoBehaviour
             {
                 if (activeTriggerObjects.Count > i)
                 {
-                    sensationPoints[i] = UpdatePointPosition(activeTriggerObjects[i]);
-                    //sensationPoints[i] = activeTriggerObjects[i].colliderGameObject.transform.position;
+                    UpdatePointPosition(activeTriggerObjects[i]);
+                    //sensationPoints[i] = (activeTriggerObjects[i].name == "bone3") ? CalculateNewPositionForTip(activeTriggerObjects[i]) : activeTriggerObjects[i].transform.position;
+                    sensationPoints[i] = activeTriggerObjects[i].transform.position;
 
                     // if steam then modify points randomly 
                     if (_isSteamSensation) {
@@ -91,7 +89,6 @@ public class HandleSensation : MonoBehaviour
                 }
                 else
                 {
-                    
                     if (activeTriggerObjects.Count > 1)
                     {
                         // draw a sensation line between the last two point back and forth
@@ -100,10 +97,11 @@ public class HandleSensation : MonoBehaviour
                     } else
                     {
                         // if only 1 sensation collision is present then apply a small movement to the secon point to get a small sensation line to feel the sensation 
-                        sensationPoints[i] = sensationPoints[0] + activeTriggerObjects[0].colliderGameObject.transform.forward * 0.01f;
+                        sensationPoints[i] = sensationPoints[0] + activeTriggerObjects[0].transform.forward * 0.01f; //sensationPoints[0] - new Vector3(0, -0.002f, 0); //ApplyNoise(sensationPoints[0]);
+                        //sensationPoints[0] = sensationPoints[0] - activeTriggerObjects[0].transform.forward * 0.01f;
                     }
+                    //sensationPoints[i] = sensationPoints[i - counter];
                     counter++;
-                    
                 }
             }
             // there are NO collision points
@@ -114,31 +112,16 @@ public class HandleSensation : MonoBehaviour
         }
     }
 
-    private Vector3 UpdatePointPosition(TriggerObject triggerObject)
+    private void UpdatePointPosition(GameObject obj)
     {
-        Collider sensibleObjectCollider = triggerObject.oGameObject.GetComponent<Collider>();
-        Collider boneCollider = triggerObject.collider;
-
-        Vector3 pointOnSensibleObjCollider = sensibleObjectCollider.ClosestPoint(boneCollider.transform.position);
-        Vector3 pointOnBoneCollider = boneCollider.ClosestPoint(sensibleObjectCollider.transform.position);
-        Vector3 middlePoint = pointOnSensibleObjCollider + (pointOnBoneCollider - pointOnSensibleObjCollider) / 2;
-        
-        Vector3 mClosestAtBone = boneCollider.ClosestPoint(middlePoint);
-        //Vector3 mClosestAtSensibleObj = sensibleObjectCollider.ClosestPoint(middlePoint);
-
-        return mClosestAtBone;
-
-        /* TODO
-        if (boneCollider.gameObject.name == "bone3")
+        if (obj.name == "bone3")
         {
-            // TODO is returned but not used yet
-            CalculateNewPositionForTip(boneCollider.gameObject);
+            CalculateNewPositionForTip(obj);
         }
         else
         {
-            // TODO returned bubt not used yet.
-            OptimizePosition(boneCollider.gameObject);
-        }*/
+            OptimizePosition(obj);
+        }
     }
 
     private Vector3 CalculateNewPositionForTip(GameObject obj)
@@ -153,14 +136,13 @@ public class HandleSensation : MonoBehaviour
         return new Vector3(0, 0, 0);
     }
 
-    // get bottom point of collision
     private Vector3 OptimizePosition(GameObject obj)
     {
         CapsuleCollider capsule = obj.GetComponent<CapsuleCollider>();
         if (capsule != null)
         {
             // Update Position
-            return obj.transform.position - new Vector3(0f, capsule.radius, 0f);
+            return obj.transform.position + new Vector3(0f, -1 * capsule.radius, 0f);
         }
 
         return new Vector3(0, 0, 0);
@@ -195,6 +177,35 @@ public class HandleSensation : MonoBehaviour
 
 
     // --------------------------------------- older Methods ------------------------------------
+
+    /*
+    private void UpdateSolidSensation()
+    {
+        int counter = 1;
+
+        for (int i = 0; i < 6; ++i)
+        {
+            // there are collision points
+            if (activeTriggerObjects.Count > 0 && (leftRigidHand.gameObject.activeSelf || rightRigidHand.gameObject.activeSelf))
+            {
+                if (activeTriggerObjects.Count > i)
+                { 
+                    sensationPoints[i] = (activeTriggerObjects[i].name == "bone3") ? calculateNewPositionForTip(activeTriggerObjects[i]) : activeTriggerObjects[i].transform.position;
+                }
+                else
+                {
+                    sensationPoints[i] = sensationPoints[i - counter];
+                    counter++;
+                }
+            }
+            // there are NO collision points
+            else
+            {
+                sensationPoints[i] = new Vector3(0, 0, 0);
+            }
+        }
+    }
+    */
     private void IterateOverBones(RigidHand hand)
     {
         // Iterate through the fingers
@@ -237,19 +248,38 @@ public class HandleSensation : MonoBehaviour
         return new Vector3(0, 0, 0);
     }
 }
+/*
 
-public class TriggerObject : MonoBehaviour
+public class TriggerObjectSaved : MonoBehaviour
 {
-    // Sensible Object
     public GameObject oGameObject;
-
-    // Bone
-    public Collider collider;
-    public GameObject colliderGameObject;
-    public TriggerObject(GameObject oGameObject, Collider collider)
+    public Vector3 position;
+    public TriggerObjectSaved(GameObject oGameObject)
     {
         this.oGameObject = oGameObject;
-        this.collider = collider;
-        this.colliderGameObject = collider.gameObject;
+
+        if (oGameObject.name == "bone3")
+        {
+            calculateNewPositionForTip();
+        }
+        else
+        {
+            position = oGameObject.transform.position;
+        }
     }
-}
+
+    private void Update()
+    {
+        position = oGameObject.transform.position;
+    }
+
+    private void calculateNewPositionForTip()
+    {
+        CapsuleCollider capsule = oGameObject.GetComponent<CapsuleCollider>();
+        if (capsule != null)
+        {
+            // Update Position
+            position = oGameObject.transform.position + new Vector3(0f, capsule.height / 2f) + capsule.center;
+        }
+    }
+}*/

@@ -7,15 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NavySmooth
-  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
-  m_ValidKeywords:
-  - _EMISSION
+  m_Name: UHForcefieldMat
+  m_Shader: {fileID: 4800000, guid: b2bbd3dad0eac4559be0ddb576fbbf4b, type: 3}
+  m_ValidKeywords: []
   m_InvalidKeywords:
-  - _LIGHTMAPPING_DYNAMIC_LIGHTMAPS
-  - _LIGHTMAPPING_REALTIME
-  - _UVSEC_UV1
-  m_LightmapFlags: 1
+  - _ALPHAPREMULTIPLY_ON
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -45,14 +42,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ee5f9bf88befa4e4eb6ac1d74dae4051, type: 3}
-        m_Scale: {x: 4, y: 4}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Occlusion:
+    - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -64,36 +57,49 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SpecGlossMap:
+    - _Refraction:
+        m_Texture: {fileID: 2800000, guid: c91c465edab6bd8448c8b88d5a05f440, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _node_4508:
+        m_Texture: {fileID: 2800000, guid: e6cd9595765630a41b32bfc74218a425, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _node_5070:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _node_6996:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaTestRef: 0.5
+    - _BlendDepth: 0.01
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _EmissionScaleUI: 0
+    - _DstBlend: 10
     - _GlossMapScale: 1
-    - _Glossiness: 0.1
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Lightmapping: 1
-    - _Metallic: 0.1
-    - _Mode: 0
+    - _IntersectionPower: 0.609
+    - _Metallic: 0
+    - _Mode: 3
     - _OcclusionStrength: 1
+    - _Opacity: 0.117
     - _Parallax: 0.02
+    - _RefractionIntensity: 0.035
+    - _RimPower: 0.261
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColorUI: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColorWithMapUI: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
-    - _SpecularColor: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 1}
+    - _Color: {r: 0, g: 1, b: 0.8595507, a: 0.29411766}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0, g: 1, b: 0.8705883, a: 1}
+    - _node_6138: {r: 1, g: 1, b: 1, a: 1}
+    - _node_664: {r: 0, g: 0.67058825, b: 0.69803923, a: 1}
   m_BuildTextureStacks: []

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Leap.Unity;
 
-public class FingertipCollision : MonoBehaviour
+public class SensibleObject : MonoBehaviour
 {
     public CollisionToSensation collisionToSensation;
     public HandleSensation handleSensation;
@@ -13,8 +13,9 @@ public class FingertipCollision : MonoBehaviour
         if (other.gameObject.tag.Equals("Bone"))
         {
             //Debug.Log("Bone triggered");
-
-            handleSensation.activeTriggerObjects.Add(other.gameObject); //new TriggerObject(other.gameObject)
+            other.ClosestPoint(new Vector3(0, 0, 0));
+            //Dictionary<GameObject, Collider> newDict = new Dictionary<GameObject, Collider> { { gameObject, other } };
+            handleSensation.activeTriggerObjects.Add(new TriggerObject(gameObject, other)); //new TriggerObject(other.gameObject)
             collisionToSensation.SetSensationEnabledStatus(true);
         }
     }
@@ -26,7 +27,8 @@ public class FingertipCollision : MonoBehaviour
             //TriggerObject objToRemove = _activeTriggerObjects.Find((x) => x.oGameObject.GetInstanceID() == other.gameObject.GetInstanceID());
             //_activeTriggerObjects.Remove(objToRemove);
 
-            handleSensation.activeTriggerObjects.Remove(other.gameObject);
+            //TriggerObject objToRemove = handleSensation.activeTriggerObjects.Find((x) => x.oGameObject.GetInstanceID() == other.gameObject.GetInstanceID());
+            handleSensation.activeTriggerObjects.Remove(new TriggerObject(gameObject, other));
 
             //Debug.Log("Bone exited");
 
