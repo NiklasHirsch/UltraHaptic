@@ -80,7 +80,6 @@ public class CollisionToSensation : MonoBehaviour
         if(Sensation.enabled == !enabled)
         {
             Sensation.enabled = enabled;
-            //Sensation.Inputs["running"].Value = true;
         }
 
     }
