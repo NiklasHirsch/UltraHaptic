@@ -64,6 +64,7 @@ public class HandleSensation : MonoBehaviour
     #endregion
     
     [NonSerialized] public List<TriggerObject> activeTriggerObjects = new List<TriggerObject>();
+    [SerializeField]
     private Vector3 _comparePoint = new Vector3(0, 0.4f, 0);
     private Vector3[] sensationPoints = new[] {
                 new Vector3(0,0,0),

@@ -636,7 +636,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89283336}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 0
@@ -12068,7 +12068,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &477928631
 Transform:
   m_ObjectHideFlags: 0
@@ -39120,7 +39120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &909558933
 Transform:
   m_ObjectHideFlags: 0
@@ -39467,7 +39467,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionToSensation: {fileID: 89283337}
-  _isSteamSensation: 0
+  _isSteamSensation: 1
+  _comparePoint: {x: 0, y: 0, z: 0}
   minNoise: -0.005
   maxNoise: 0.005
 --- !u!1 &969899479
@@ -45114,7 +45115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1112398189
 Transform:
   m_ObjectHideFlags: 0
@@ -45281,7 +45282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1163603973
 Transform:
   m_ObjectHideFlags: 0
@@ -55343,7 +55344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1283779054
 Transform:
   m_ObjectHideFlags: 0
@@ -55440,7 +55441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1285665107
 Transform:
   m_ObjectHideFlags: 0
@@ -60720,7 +60721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1354967914
 Transform:
   m_ObjectHideFlags: 0
@@ -71980,7 +71981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1567063684
 Transform:
   m_ObjectHideFlags: 0
@@ -74578,6 +74579,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.45215714
       objectReference: {fileID: 0}
+    - target: {fileID: 6089830851412828528, guid: 7ef9f1bc640421743bfe76514accc7ae, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089830851412828528, guid: 7ef9f1bc640421743bfe76514accc7ae, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 656f20547119fdb458f963979916ec78, type: 2}
     - target: {fileID: 8565164099261746185, guid: 7ef9f1bc640421743bfe76514accc7ae, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.5436577
