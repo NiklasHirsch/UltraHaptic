@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UHForcefield - neutral
+  m_Name: UHForcefield - Neutral
   m_Shader: {fileID: 4800000, guid: b2bbd3dad0eac4559be0ddb576fbbf4b, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -75,7 +75,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BlendDepth: 0.01
+    - _BlendDepth: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -87,7 +87,7 @@ Material:
     - _Metallic: 0
     - _Mode: 3
     - _OcclusionStrength: 1
-    - _Opacity: 0.117
+    - _Opacity: 0
     - _Parallax: 0.02
     - _RefractionIntensity: 0.035
     - _RimPower: 0.261
