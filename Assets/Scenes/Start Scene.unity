@@ -10767,7 +10767,7 @@ GameObject:
   - component: {fileID: 942422559}
   - component: {fileID: 942422560}
   m_Layer: 0
-  m_Name: StudyConfig
+  m_Name: StudyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10800,8 +10800,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a1372f582e8294b81d9af3d9b84181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  participantNumber: 0
-  numberOfParticipants: 6
+  participantNumber: 1
+  numberOfParticipants: 0
+  _csvSubFolder: TestFiles
+  _csvFileName: data
+  latinSquareList1: 000000000100000002000000
+  latinSquareList2: 000000000200000001000000
+  latinSquareList3: 020000000000000001000000
+  latinSquareList4: 020000000100000000000000
+  latinSquareList5: 010000000200000000000000
+  latinSquareList6: 010000000000000002000000
 --- !u!1 &969899479
 GameObject:
   m_ObjectHideFlags: 0
