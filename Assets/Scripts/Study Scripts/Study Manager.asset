@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Study Manager
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableStudyManager
+  participantNumber: 0
+  numberOfParticipants: 0
+  _csvSubFolder: TestFiles
+  _csvFileName: data
+  _dataSeperator: ;
+  latinSquareList1: 000000000100000002000000
+  latinSquareList2: 000000000200000001000000
+  latinSquareList3: 020000000000000001000000
+  latinSquareList4: 020000000100000000000000
+  latinSquareList5: 010000000200000000000000
+  latinSquareList6: 010000000000000002000000

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-/*
 public enum PhysicalState
 {
     Solid,
@@ -18,9 +17,10 @@ public enum AnswerType
     Neutral,
     Agree,
     FullyAgree
-}*/
+}
 
-public class StudyManager : MonoBehaviour
+[CreateAssetMenu(menuName ="Scriptable Objects/StudyManager")]
+public class ScriptableStudyManager : ScriptableObject
 {
 
     [SerializeField]
