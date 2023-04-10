@@ -33,7 +33,8 @@ public class QuestionManager : MonoBehaviour
     public List<AnswerType> answerTypes = new List<AnswerType>(5);
 
     [SerializeField]
-    private StudyManager _studyManager;
+    private ScriptableStudyManager _studyManager;
+    
 
     #region Next / Prev
     public void PrevQuestion()

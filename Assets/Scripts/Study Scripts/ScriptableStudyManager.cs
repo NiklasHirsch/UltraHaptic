@@ -3,75 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-/*
-public enum PhysicalState
+[CreateAssetMenu(fileName = "New ScriptableStudyManager",menuName = "Scriptable Objects/ScriptableStudyManager")]
+public class ScriptableStudyManager : ScriptableObject
 {
-    Solid,
-    Liquid,
-    Gas
-}
-
-public enum AnswerType
-{
-    FullyDisagree,
-    Disagree,
-    Neutral,
-    Agree,
-    FullyAgree
-}*/
-
-public class StudyManager : MonoBehaviour
-{
-
-    [SerializeField]
+    #region participant or important study variables / data
     public int participantNumber = 0;
-
     [RangeEx(6, 60, 6)]
     public int numberOfParticipants = 30;
+    public List<PhysicalState> currentParticipantList = new List<PhysicalState>();
 
+    // 0 = start scene, 1 = first physical state, 2 = second, 3 = third state
+    public int currentStudyBlock = 0;
+    #endregion
 
-    [SerializeField]
-    private string _csvSubFolder = "TestFiles";
-    [SerializeField]
-    private string _csvFileName = "example";
-    [SerializeField]
-    private string _dataSeperator = ";";
+    #region csv writer variables
+    public StreamWriter writer;
+    public string writePath;
+    public string _csvSubFolder = "TestFiles";
+    public string _csvFileName = "example";
+    public string _dataSeperator = ";";
+    #endregion
 
+    #region setup data
     public List<List<PhysicalState>> latinSquareList = new List<List<PhysicalState>>();
-
     public List<PhysicalState> latinSquareList1 = new List<PhysicalState>();
     public List<PhysicalState> latinSquareList2 = new List<PhysicalState>();
     public List<PhysicalState> latinSquareList3 = new List<PhysicalState>();
     public List<PhysicalState> latinSquareList4 = new List<PhysicalState>();
     public List<PhysicalState> latinSquareList5 = new List<PhysicalState>();
     public List<PhysicalState> latinSquareList6 = new List<PhysicalState>();
+    #endregion
 
-    public StreamWriter writer;
-
-    // Start is called before the first frame update
-    void Start()
+    public void SetupParticipantList()
     {
-        if(numberOfParticipants == 0)
-        {
-            numberOfParticipants = 30;
-        }
-
-        //SetupBasicLatinSquareLists();
-
-        SetupLatinSquareList();
-        SetupWriter();
+        currentParticipantList = latinSquareList[participantNumber - 1];
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (participantNumber < 1)
-        {
-            Debug.Log("<color=#FF0000> PARTICIPANT NOT SET OR NEAGTIVE! </color>");
-        }
-    }
-
-    private void SetupBasicLatinSquareLists()
+    public void SetupBasicLatinSquareLists()
     {
         latinSquareList1.Add(PhysicalState.Solid);
         latinSquareList1.Add(PhysicalState.Liquid);
@@ -98,7 +65,7 @@ public class StudyManager : MonoBehaviour
         latinSquareList6.Add(PhysicalState.Gas);
     }
 
-    private void SetupLatinSquareList()
+    public void SetupLatinSquareList()
     {
         Debug.Log("<color=#0000FF>" + numberOfParticipants + "</color>");
         for (int p = 0; p < numberOfParticipants; p++)
@@ -131,7 +98,7 @@ public class StudyManager : MonoBehaviour
         LogList(latinSquareList);
     }
 
-    private void LogList(List<List<PhysicalState>> list)
+    public void LogList(List<List<PhysicalState>> list)
     {
         // result String of list content
         string listContent = "";
@@ -152,9 +119,9 @@ public class StudyManager : MonoBehaviour
         Debug.Log("<color=#00FFFF>" + listContent + "</color>");
     }
 
-    #region
+    #region CSV Writer
     // ----------- CSV Writer -------------
-    private void SetupWriter()
+    public void SetupWriter()
     {
         // Set the parent folder path
         string parentFolderPath = Application.dataPath + "/CSV/" + _csvSubFolder + "/";
@@ -173,26 +140,34 @@ public class StudyManager : MonoBehaviour
         string fileName = _csvFileName + " t_" + timeStamp + " p_" + participantNumber + ".csv";
         string filePath = Path.Combine(folderPath, fileName);
 
+        writePath = filePath;
+
         // Create a new file
         writer = new StreamWriter(filePath);
 
         Debug.Log("< color =#00FF00> File created successfully. </color>");
 
-        WriteCSVLine($"Date: {DateTime.Now:yyyyddHHmmss}{_dataSeperator}" +
-            $"Participant " + participantNumber);
+        writer.WriteLine($"Date:{_dataSeperator}" +
+            $"{DateTime.Now:yyyyddHHmmss}");
 
-        WriteCSVLine($"B-LS Block{_dataSeperator}" +
+        writer.WriteLine($"Participant:{_dataSeperator}" + participantNumber);
+
+        writer.WriteLine($"B-LS Block:{_dataSeperator}" +
             $"{latinSquareList[participantNumber - 1][0]}{_dataSeperator}" +
             $"{latinSquareList[participantNumber - 1][1]}{_dataSeperator}" +
             $"{latinSquareList[participantNumber - 1][2]}");
 
-        //CloseWriter();
+        CloseWriter();
     }
 
-    public void WriteCSVLine(string input)
+    public void AppendCSVLine(string input)
     {
+        writer = new StreamWriter(writePath, true);
+
         // Write some data to the file
         writer.WriteLine(input);
+
+        CloseWriter();
     }
 
     public void CloseWriter()

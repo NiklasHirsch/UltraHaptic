@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Study Manager
-  m_EditorClassIdentifier: Assembly-CSharp::ScriptableStudyManager
-  participantNumber: 0
+  m_Script: {fileID: 11500000, guid: f6e09b34a4f3eef4686c249e60cf509c, type: 3}
+  m_Name: ScriptableStudyManager
+  m_EditorClassIdentifier: 
+  participantNumber: 1
   numberOfParticipants: 0
   _csvSubFolder: TestFiles
   _csvFileName: data
@@ -23,3 +23,4 @@ MonoBehaviour:
   latinSquareList4: 020000000100000000000000
   latinSquareList5: 010000000200000000000000
   latinSquareList6: 010000000000000002000000
+  writePath: 

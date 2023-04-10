@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using System.IO;
+
+public enum PhysicalState
+{
+    Solid,
+    Liquid,
+    Gas
+}
+
+public enum AnswerType
+{
+    FullyDisagree,
+    Disagree,
+    Neutral,
+    Agree,
+    FullyAgree
+}
+
+public class StudySetup : MonoBehaviour
+{
+    [SerializeField]
+    private ScriptableStudyManager _studyManager;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if(_studyManager.numberOfParticipants == 0)
+        {
+            _studyManager.numberOfParticipants = 30;
+        }
+
+        //_studyManager.SetupBasicLatinSquareLists();
+
+        _studyManager.SetupLatinSquareList();
+
+        _studyManager.SetupParticipantList();
+
+        _studyManager.SetupWriter();
+
+        _studyManager.AppendCSVLine("Test Line; haha");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (_studyManager.participantNumber < 1)
+        {
+            Debug.Log("<color=#FF0000> PARTICIPANT NOT SET OR NEAGTIVE! </color>");
+        }
+    }
+
+    private void LogList(List<List<PhysicalState>> list)
+    {
+        // result String of list content
+        string listContent = "";
+
+        int listIndex = 0;
+        foreach (var listX in list)
+        {
+            listContent += $"Participant {listIndex + 1}: ";
+            foreach (var pState in listX)
+            {
+                
+                listContent += $"{pState}, ";
+            }
+            listContent += "\n";
+            listIndex++;
+        }
+
+        Debug.Log("<color=#00FFFF>" + listContent + "</color>");
+    }
+}
