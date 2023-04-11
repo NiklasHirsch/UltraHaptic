@@ -10,6 +10,6 @@ public class SetupGasScene : MonoBehaviour
 
     void Start()
     {
-        
+        Debug.Log("Started - Gas");
     }
 }

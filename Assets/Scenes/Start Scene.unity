@@ -920,7 +920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b26fd4e9e620d5498ab906698c26b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _studyManager: {fileID: 0}
+  _studyManager: {fileID: 11400000, guid: 22fd4627c3604fa4e80b563506a028dc, type: 2}
   _solidSceneName: Solid - Haptic sensation
   _liquidSceneName: Liquid - Haptic sensation
   _gasSceneName: Gas - Haptic sensation
@@ -3746,6 +3746,18 @@ MonoBehaviour:
       - m_Target: {fileID: 7173429566545902085}
         m_TargetAssemblyTypeName: Oculus.Interaction.AudioTrigger, Oculus.Interaction.Samples
         m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 942422561}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadNextScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
