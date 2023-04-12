@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+public enum ColorSelection
+{
+    Blue,
+    Neutral,
+    Red
+}
 public enum PhysicalState
 {
     Solid,
@@ -32,15 +38,14 @@ public class StudySetup : MonoBehaviour
             _studyManager.numberOfParticipants = 30;
         }
 
-        //_studyManager.SetupBasicLatinSquareLists();
+        _studyManager.currentStudyBlock = 0;
+        _studyManager.trial = _studyManager.initalTrials;
 
         _studyManager.SetupLatinSquareList();
 
         _studyManager.SetupParticipantList();
 
         _studyManager.SetupWriter();
-
-        _studyManager.AppendCSVLine("Test Line; haha");
     }
 
     // Update is called once per frame

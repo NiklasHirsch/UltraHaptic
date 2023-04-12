@@ -34,7 +34,10 @@ public class QuestionManager : MonoBehaviour
 
     [SerializeField]
     private ScriptableStudyManager _studyManager;
-    
+
+    [SerializeField]
+    private StudySceneLoader _studySceneLoader;
+
 
     #region Next / Prev
     public void PrevQuestion()
@@ -79,6 +82,7 @@ public class QuestionManager : MonoBehaviour
         }
 
         q1Answer = answerTypes[answerType];
+        Debug.Log("A1: " + q1Answer);
     }
 
     public void Question2AnswerSelected(int answerType)
@@ -90,6 +94,7 @@ public class QuestionManager : MonoBehaviour
         }
 
         q2Answer = answerTypes[answerType];
+        Debug.Log("A2: " + q2Answer);
     }
 
     private void UpdateSubmitBtn()
@@ -114,7 +119,9 @@ public class QuestionManager : MonoBehaviour
     {
         if (_question1AnswerSelected && _question2AnswerSelected && !q1Answer.Equals(null) && !q2Answer.Equals(null))
         {
-            
+            _studyManager.AppendCSVLine($"Trial:{_studyManager._dataSeperator}{_studyManager.trial}");
+            _studyManager.AppendCSVLine($"Answer 1:{_studyManager._dataSeperator}{q1Answer}{_studyManager._dataSeperator}Answer 2:{_studyManager._dataSeperator}{q1Answer}");
+            _studySceneLoader.LoadNextScene();
         }
     }
     #endregion

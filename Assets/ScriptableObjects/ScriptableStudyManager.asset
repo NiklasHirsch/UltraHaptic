@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   participantNumber: 1
   numberOfParticipants: 0
+  currentParticipantList: 000000000100000002000000
+  initalTrials: 6
+  writePath: E:/Github Projects/UltraHaptic/Assets/CSV/TestFiles/04-12\data t_16-04-04
+    p_1.csv
   _csvSubFolder: TestFiles
   _csvFileName: data
   _dataSeperator: ;
@@ -23,4 +27,3 @@ MonoBehaviour:
   latinSquareList4: 020000000100000000000000
   latinSquareList5: 010000000200000000000000
   latinSquareList6: 010000000000000002000000
-  writePath: 

@@ -12,8 +12,43 @@ public class ScriptableStudyManager : ScriptableObject
     public int numberOfParticipants = 30;
     public List<PhysicalState> currentParticipantList = new List<PhysicalState>();
 
+    public int initalTrials = 6;
+    [NonSerialized]
+    public int trial;
+
     // 0 = start scene, 1 = first physical state, 2 = second, 3 = third state
+    [NonSerialized]
     public int currentStudyBlock = 0;
+
+    public List<(ColorSelection, bool)> trialSolidConfigList = new List<(ColorSelection, bool)>
+      {
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+      };
+
+    public List<(ColorSelection, bool)> trialLiquidConfigList = new List<(ColorSelection, bool)>
+      {
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+      };
+
+    public List<(ColorSelection, bool)> trialGasConfigList = new List<(ColorSelection, bool)>
+      {
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+      };
     #endregion
 
     #region csv writer variables
@@ -176,4 +211,28 @@ public class ScriptableStudyManager : ScriptableObject
         writer.Close();
     }
     #endregion
+
+    public (ColorSelection, bool) GetRandomElementOfTrialList(PhysicalState state)
+    {
+        switch (state)
+        {
+            case PhysicalState.Solid:
+                var indexS = UnityEngine.Random.Range(0, trialSolidConfigList.Count);
+                var elementS = trialSolidConfigList[indexS];
+                trialSolidConfigList.RemoveAt(indexS);
+                return elementS;
+            case PhysicalState.Liquid:
+                var indexL = UnityEngine.Random.Range(0, trialSolidConfigList.Count);
+                var elementL = trialSolidConfigList[indexL];
+                trialSolidConfigList.RemoveAt(indexL);
+                return elementL;
+            case PhysicalState.Gas:
+                var indexG = UnityEngine.Random.Range(0, trialSolidConfigList.Count);
+                var elementG = trialSolidConfigList[indexG];
+                trialSolidConfigList.RemoveAt(indexG);
+                return elementG;
+            default:
+                return (ColorSelection.Blue, true);
+        }
+    }
 }

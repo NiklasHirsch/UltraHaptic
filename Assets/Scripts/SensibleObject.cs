@@ -15,8 +15,8 @@ public class SensibleObject : MonoBehaviour
             handleSensation.activeTriggerObjects.Add(new TriggerObject(gameObject, other));
             handleSensation.UpdateSensation();
 
-            Debug.Log("Bone triggered - TriggerObjects: " + handleSensation.activeTriggerObjects);
-            Debug.Log("Objects in List: " + handleSensation.activeTriggerObjects.Count);
+            //Debug.Log("Bone triggered - TriggerObjects: " + handleSensation.activeTriggerObjects);
+            //Debug.Log("Objects in List: " + handleSensation.activeTriggerObjects.Count);
         }
     }
 
@@ -59,8 +59,8 @@ public class SensibleObject : MonoBehaviour
             
             handleSensation.UpdateSensation();
 
-            Debug.Log("Bone exited - TriggerObjects: " + handleSensation.activeTriggerObjects);
-            Debug.Log("Objects in List: " + handleSensation.activeTriggerObjects.Count);
+            //Debug.Log("Bone exited - TriggerObjects: " + handleSensation.activeTriggerObjects);
+            //Debug.Log("Objects in List: " + handleSensation.activeTriggerObjects.Count);
         }
     }
 }

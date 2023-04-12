@@ -34,7 +34,7 @@ public class Calibration : MonoBehaviour
         // check if space pressed
         if (Input.GetKeyDown("space"))
         {
-            Debug.Log("space");
+            //Debug.Log("space");
             SetOVRPos();
         }
     }
@@ -49,14 +49,14 @@ public class Calibration : MonoBehaviour
         if (leftHandPalm != null && leftHandAnchor != null && leftHandPalm.gameObject.activeSelf)
         {
             var difference = leftHandPalm.transform.position - leftHandAnchor.transform.position - palmOffset;
-            Debug.Log("Left Difference: " + difference + ", OVR Pos: " + interactionRigOVR.transform.position);
+            //Debug.Log("Left Difference: " + difference + ", OVR Pos: " + interactionRigOVR.transform.position);
 
             interactionRigOVR.transform.position += difference;
 
         } else if (rightHandPalm != null && rightHandAnchor != null && rightHandPalm.gameObject.activeSelf) 
         {
             var difference = rightHandPalm.transform.position - rightHandAnchor.transform.position;
-            Debug.Log("Right Difference: " + difference + ", OVR Pos: " + interactionRigOVR.transform.position);
+            //Debug.Log("Right Difference: " + difference + ", OVR Pos: " + interactionRigOVR.transform.position);
         }
     }
 }

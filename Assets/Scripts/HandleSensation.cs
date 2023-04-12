@@ -272,10 +272,10 @@ public class HandleSensation : MonoBehaviour
         if (Physics.Raycast(finger.transform.position, finger.transform.forward, out hit))
         {
             var hitpoint = hit.point;
-            Debug.Log(finger + ", Point of contact: " + hitpoint);
+            //Debug.Log(finger + ", Point of contact: " + hitpoint);
 
             var closestPoint = other.ClosestPoint(hit.point);
-            Debug.Log(finger + ", Closest Point: " + closestPoint);
+            //Debug.Log(finger + ", Closest Point: " + closestPoint);
 
             var result = new Vector3(Mathf.Clamp(closestPoint.x, minXY, maxXY), Mathf.Clamp(closestPoint.y, minXY, maxXY), 0);
             //Debug.Log("Result Point: " + result);
