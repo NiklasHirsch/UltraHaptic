@@ -217,17 +217,17 @@ public class ScriptableStudyManager : ScriptableObject
         switch (state)
         {
             case PhysicalState.Solid:
-                var indexS = UnityEngine.Random.Range(0, trialSolidConfigList.Count);
+                var indexS = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
                 var elementS = trialSolidConfigList[indexS];
                 trialSolidConfigList.RemoveAt(indexS);
                 return elementS;
             case PhysicalState.Liquid:
-                var indexL = UnityEngine.Random.Range(0, trialSolidConfigList.Count);
+                var indexL = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
                 var elementL = trialSolidConfigList[indexL];
                 trialSolidConfigList.RemoveAt(indexL);
                 return elementL;
             case PhysicalState.Gas:
-                var indexG = UnityEngine.Random.Range(0, trialSolidConfigList.Count);
+                var indexG = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
                 var elementG = trialSolidConfigList[indexG];
                 trialSolidConfigList.RemoveAt(indexG);
                 return elementG;

@@ -81,6 +81,5 @@ public class CollisionToSensation : MonoBehaviour
         {
             Sensation.enabled = enabled;
         }
-
     }
 }

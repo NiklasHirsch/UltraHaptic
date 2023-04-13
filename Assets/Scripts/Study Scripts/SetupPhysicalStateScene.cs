@@ -15,7 +15,13 @@ public class SetupPhysicalStateScene : MonoBehaviour
 
     [Header("Scene Elements Settings - disbabled/enabled")]
     [SerializeField]
+    private GameObject _ultrahapticModel;
+
+    [SerializeField]
     private GameObject _hapticElements;
+
+    [SerializeField]
+    private CollisionToSensation _collisionToSensation;
 
     [SerializeField]
     private GameObject _blueSate;
@@ -40,9 +46,35 @@ public class SetupPhysicalStateScene : MonoBehaviour
 
     private void SetupSceneElements()
     {
-        _hapticElements.SetActive(sceneConfig.Item2);
+        SteupHaptics();
+
+        SetupColors();
+    }
+
+    private void SetupColors()
+    {
+        // setup colors
         _blueSate.SetActive(sceneConfig.Item1 == ColorSelection.Blue);
         _neutralSate.SetActive(sceneConfig.Item1 == ColorSelection.Neutral);
         _redSate.SetActive(sceneConfig.Item1 == ColorSelection.Red);
+    }
+
+    private void SteupHaptics(){
+        _collisionToSensation.SetSensationEnabledStatus(sceneConfig.Item2);
+        // disable polyline sensation part
+        Transform polylineSensation = _hapticElements.transform.Find("PolylineSensation");
+        polylineSensation.gameObject.SetActive(sceneConfig.Item2);
+
+        // disable Line Renderer and path points
+        Transform collisonPoints = _hapticElements.transform.Find("CollisonPoints");
+        LineRenderer lineRenderer = collisonPoints.gameObject.GetComponent<LineRenderer>();
+        lineRenderer.enabled = sceneConfig.Item2;
+        foreach (Transform child in collisonPoints)
+        {
+            child.gameObject.SetActive(sceneConfig.Item2);
+        }
+
+        // disable ultrahaptics Model
+        _ultrahapticModel.SetActive(sceneConfig.Item2);
     }
 }

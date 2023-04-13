@@ -10735,7 +10735,8 @@ MonoBehaviour:
   SphereRadius: 0.005
   SphereColor: {r: 0.39215687, g: 0.654902, b: 0.043137256, a: 1}
   HistorySize: 200
-  registeredSources_: []
+  registeredSources_:
+  - {fileID: 962024260}
 --- !u!114 &656219585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20454,7 +20455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &785554650
 Transform:
   m_ObjectHideFlags: 0
@@ -25979,7 +25980,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _studyManager: {fileID: 11400000, guid: 22fd4627c3604fa4e80b563506a028dc, type: 2}
   _physicalState: 2
-  _hapticElements: {fileID: 1130356394}
+  _ultrahapticModel: {fileID: 1130356394}
+  _hapticElements: {fileID: 785554649}
+  _collisionToSensation: {fileID: 89283337}
   _blueSate: {fileID: 749866503}
   _neutralSate: {fileID: 1112398188}
   _redSate: {fileID: 477928630}

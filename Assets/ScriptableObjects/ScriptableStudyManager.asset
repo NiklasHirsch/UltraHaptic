@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e09b34a4f3eef4686c249e60cf509c, type: 3}
   m_Name: ScriptableStudyManager
   m_EditorClassIdentifier: 
-  participantNumber: 1
+  participantNumber: 6
   numberOfParticipants: 0
   currentParticipantList: 000000000100000002000000
   initalTrials: 6
-  writePath: E:/Github Projects/UltraHaptic/Assets/CSV/TestFiles/04-12\data t_16-04-04
-    p_1.csv
+  writePath: C:/Users/admin/Documents/Unity Projects/UltraHaptic/Assets/CSV/TestFiles/04-13\data
+    t_13-05-10 p_1.csv
   _csvSubFolder: TestFiles
   _csvFileName: data
   _dataSeperator: ;

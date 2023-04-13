@@ -1,0 +1,12 @@
+Date:;202313120057
+Participant:;1
+B-LS Block:;Solid;Liquid;Gas
+Block 0:;Solid;Config:;(Red, True)
+Trial:;5
+Answer 1:;FullyAgree;Answer 2:;FullyAgree
+Block 0:;Solid;Config:;(Neutral, False)
+Block 0:;Gas;Config:;(Neutral, True)
+Block 0:;Liquid;Config:;(Blue, True)
+Block 0:;Liquid;Config:;(Neutral, False)
+Block 0:;Solid;Config:;(Red, True)
+Block 0:;Solid;Config:;(Neutral, False)
