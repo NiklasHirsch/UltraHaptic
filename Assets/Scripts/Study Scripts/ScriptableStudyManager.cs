@@ -7,12 +7,16 @@ using System.IO;
 public class ScriptableStudyManager : ScriptableObject
 {
     #region participant or important study variables / data
+
     public int participantNumber = 0;
+
     [RangeEx(6, 60, 6)]
     public int numberOfParticipants = 30;
+
+    [NonSerialized]
     public List<PhysicalState> currentParticipantList = new List<PhysicalState>();
 
-    public int initalTrials = 6;
+    public int initalTrials = 5;
     [NonSerialized]
     public int trial;
 
@@ -20,35 +24,8 @@ public class ScriptableStudyManager : ScriptableObject
     [NonSerialized]
     public int currentStudyBlock = 0;
 
-    public List<(ColorSelection, bool)> trialSolidConfigList = new List<(ColorSelection, bool)>
-      {
-          (ColorSelection.Blue, true),
-          (ColorSelection.Blue, false),
-          (ColorSelection.Neutral, true),
-          (ColorSelection.Neutral, false),
-          (ColorSelection.Red, true),
-          (ColorSelection.Red, false),
-      };
-
-    public List<(ColorSelection, bool)> trialLiquidConfigList = new List<(ColorSelection, bool)>
-      {
-          (ColorSelection.Blue, true),
-          (ColorSelection.Blue, false),
-          (ColorSelection.Neutral, true),
-          (ColorSelection.Neutral, false),
-          (ColorSelection.Red, true),
-          (ColorSelection.Red, false),
-      };
-
-    public List<(ColorSelection, bool)> trialGasConfigList = new List<(ColorSelection, bool)>
-      {
-          (ColorSelection.Blue, true),
-          (ColorSelection.Blue, false),
-          (ColorSelection.Neutral, true),
-          (ColorSelection.Neutral, false),
-          (ColorSelection.Red, true),
-          (ColorSelection.Red, false),
-      };
+    [NonSerialized]
+    public (ColorSelection, bool) currentSceneConfig;
     #endregion
 
     #region csv writer variables
@@ -60,6 +37,107 @@ public class ScriptableStudyManager : ScriptableObject
     #endregion
 
     #region setup data
+    // 30 Elements per List
+    public List<(ColorSelection, bool)> trialSolidConfigList = new List<(ColorSelection, bool)>
+      {
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+      };
+    public List<(ColorSelection, bool)> trialLiquidConfigList = new List<(ColorSelection, bool)>
+      {
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+      };
+    public List<(ColorSelection, bool)> trialGasConfigList = new List<(ColorSelection, bool)>
+      {
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+          (ColorSelection.Blue, true),
+          (ColorSelection.Blue, false),
+          (ColorSelection.Neutral, true),
+          (ColorSelection.Neutral, false),
+          (ColorSelection.Red, true),
+          (ColorSelection.Red, false),
+      };
+
     public List<List<PhysicalState>> latinSquareList = new List<List<PhysicalState>>();
     public List<PhysicalState> latinSquareList1 = new List<PhysicalState>();
     public List<PhysicalState> latinSquareList2 = new List<PhysicalState>();
@@ -67,6 +145,10 @@ public class ScriptableStudyManager : ScriptableObject
     public List<PhysicalState> latinSquareList4 = new List<PhysicalState>();
     public List<PhysicalState> latinSquareList5 = new List<PhysicalState>();
     public List<PhysicalState> latinSquareList6 = new List<PhysicalState>();
+    #endregion
+
+    #region testing
+    public bool disableHapticFeedbackElements = false;
     #endregion
 
     public void SetupParticipantList()
@@ -187,12 +269,16 @@ public class ScriptableStudyManager : ScriptableObject
 
         writer.WriteLine($"Participant:{_dataSeperator}" + participantNumber);
 
-        writer.WriteLine($"B-LS Block:{_dataSeperator}" +
-            $"{latinSquareList[participantNumber - 1][0]}{_dataSeperator}" +
-            $"{latinSquareList[participantNumber - 1][1]}{_dataSeperator}" +
-            $"{latinSquareList[participantNumber - 1][2]}");
+        // Main Line
+        writer.WriteLine($"Block{_dataSeperator}Trial{_dataSeperator}Haptic{_dataSeperator}Color{_dataSeperator}A1{_dataSeperator}A2");
+       /*
+       writer.WriteLine($"B-LS Block:{_dataSeperator}" +
+           $"{latinSquareList[participantNumber - 1][0]}{_dataSeperator}" +
+           $"{latinSquareList[participantNumber - 1][1]}{_dataSeperator}" +
+           $"{latinSquareList[participantNumber - 1][2]}");
+       */
 
-        CloseWriter();
+       CloseWriter();
     }
 
     public void AppendCSVLine(string input)
@@ -214,25 +300,31 @@ public class ScriptableStudyManager : ScriptableObject
 
     public (ColorSelection, bool) GetRandomElementOfTrialList(PhysicalState state)
     {
-        switch (state)
+        try
         {
-            case PhysicalState.Solid:
-                var indexS = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
-                var elementS = trialSolidConfigList[indexS];
-                trialSolidConfigList.RemoveAt(indexS);
-                return elementS;
-            case PhysicalState.Liquid:
-                var indexL = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
-                var elementL = trialSolidConfigList[indexL];
-                trialSolidConfigList.RemoveAt(indexL);
-                return elementL;
-            case PhysicalState.Gas:
-                var indexG = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
-                var elementG = trialSolidConfigList[indexG];
-                trialSolidConfigList.RemoveAt(indexG);
-                return elementG;
-            default:
-                return (ColorSelection.Blue, true);
+            switch (state)
+            {
+                case PhysicalState.Solid:
+                    var indexS = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
+                    var elementS = trialSolidConfigList[indexS];
+                    trialSolidConfigList.RemoveAt(indexS);
+                    return elementS;
+                case PhysicalState.Liquid:
+                    var indexL = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
+                    var elementL = trialSolidConfigList[indexL];
+                    trialSolidConfigList.RemoveAt(indexL);
+                    return elementL;
+                case PhysicalState.Gas:
+                    var indexG = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
+                    var elementG = trialSolidConfigList[indexG];
+                    trialSolidConfigList.RemoveAt(indexG);
+                    return elementG;
+                default:
+                    return (ColorSelection.Blue, true);
+            }
+        } catch (IndexOutOfRangeException ex) {
+            Debug.LogError(ex);
+            return (ColorSelection.Blue, true);
         }
     }
 }

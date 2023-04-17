@@ -37,16 +37,17 @@ public class SetupPhysicalStateScene : MonoBehaviour
         Debug.Log($"Started - {_physicalState} scene");
 
         sceneConfig = _studyManager.GetRandomElementOfTrialList(_physicalState);
+        _studyManager.currentSceneConfig = sceneConfig;
 
         SetupSceneElements();
 
         //_studyManager.currentStudyBlock -> 0 = start scene, 1 = first physical state, 2 = second, 3 = third state
-        _studyManager.AppendCSVLine($"Block {_studyManager.currentStudyBlock}:{_studyManager._dataSeperator}{_physicalState}{_studyManager._dataSeperator}Config:{_studyManager._dataSeperator}{sceneConfig}");
+        //_studyManager.AppendCSVLine($"Block {_studyManager.currentStudyBlock}:{_studyManager._dataSeperator}{_physicalState}{_studyManager._dataSeperator}Config:{_studyManager._dataSeperator}{sceneConfig}");
     }
 
     private void SetupSceneElements()
     {
-        SteupHaptics();
+        SetupHaptics();
 
         SetupColors();
     }
@@ -59,22 +60,30 @@ public class SetupPhysicalStateScene : MonoBehaviour
         _redSate.SetActive(sceneConfig.Item1 == ColorSelection.Red);
     }
 
-    private void SteupHaptics(){
-        _collisionToSensation.SetSensationEnabledStatus(sceneConfig.Item2);
-        // disable polyline sensation part
-        Transform polylineSensation = _hapticElements.transform.Find("PolylineSensation");
-        polylineSensation.gameObject.SetActive(sceneConfig.Item2);
+    private void SetupHaptics(){
+        bool addHaptics = sceneConfig.Item2;
 
-        // disable Line Renderer and path points
-        Transform collisonPoints = _hapticElements.transform.Find("CollisonPoints");
-        LineRenderer lineRenderer = collisonPoints.gameObject.GetComponent<LineRenderer>();
-        lineRenderer.enabled = sceneConfig.Item2;
-        foreach (Transform child in collisonPoints)
+        if (_studyManager.disableHapticFeedbackElements)
         {
-            child.gameObject.SetActive(sceneConfig.Item2);
+            _hapticElements.SetActive(false);
+        } else
+        {
+            _collisionToSensation.SetSensationEnabledStatus(addHaptics);
+            // disable polyline sensation part
+            Transform polylineSensation = _hapticElements.transform.Find("PolylineSensation");
+            polylineSensation.gameObject.SetActive(addHaptics);
+
+            // disable Line Renderer and path points
+            Transform collisonPoints = _hapticElements.transform.Find("CollisonPoints");
+            LineRenderer lineRenderer = collisonPoints.gameObject.GetComponent<LineRenderer>();
+            lineRenderer.enabled = addHaptics;
+            foreach (Transform child in collisonPoints)
+            {
+                child.gameObject.SetActive(addHaptics);
+            }
         }
 
         // disable ultrahaptics Model
-        _ultrahapticModel.SetActive(sceneConfig.Item2);
+        _ultrahapticModel.SetActive(addHaptics);
     }
 }

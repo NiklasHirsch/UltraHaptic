@@ -9,6 +9,7 @@ public class QuestionManager : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> _questionBlocks;
+
     private int _currentQuestion = 1;
 
     [SerializeField]
@@ -30,6 +31,9 @@ public class QuestionManager : MonoBehaviour
     private AnswerType q1Answer;
     private AnswerType q2Answer;
 
+    private int q1AnswerNum;
+    private int q2AnswerNum;
+
     public List<AnswerType> answerTypes = new List<AnswerType>(5);
 
     [SerializeField]
@@ -38,8 +42,53 @@ public class QuestionManager : MonoBehaviour
     [SerializeField]
     private StudySceneLoader _studySceneLoader;
 
+    //------------ Additional Stuff -------------
+
+    [Header("Slider Settings")]
+    [SerializeField]
+    private Slider _slider;
+
+    [SerializeField]
+    private TextMeshProUGUI _sliderValue;
+
+    private bool _showNextQuestion = false;
+
+    private void Update()
+    {
+        if (_showNextQuestion)
+        {
+            _questionBlocks[_currentQuestion].gameObject.SetActive(true);
+            _currentQuestion += 1;
+            _showNextQuestion = false;
+        }
+    }
 
     #region Next / Prev
+    public void NextQuestion()
+    {
+        if (_questionBlocks[_currentQuestion] != null && _questionBlocks[_currentQuestion - 1] != null)
+        {
+            // show next question 
+            _questionBlocks[_currentQuestion - 1].gameObject.SetActive(false);
+            _showNextQuestion = true;
+        }
+    }
+
+    public void NextQuestionWithNextBtn()
+    {
+        if (_questionBlocks[_currentQuestion] != null)
+        {
+            // show next question 
+            _questionBlocks[_currentQuestion - 1].gameObject.SetActive(false);
+            _questionBlocks[_currentQuestion].gameObject.SetActive(true);
+            _currentQuestion += 1;
+
+            // set Btns active / inactive 
+            _nextBtn.SetActive(false);
+            _prevBtn.SetActive(true);
+        }
+    }
+
     public void PrevQuestion()
     {
         if (_questionBlocks[_currentQuestion - 2] != null)
@@ -54,35 +103,38 @@ public class QuestionManager : MonoBehaviour
             _nextBtn.SetActive(true);
         }
     }
-
-    public void NextQuestion()
-    {
-        if(_questionBlocks[_currentQuestion] != null)
-        {
-            // show next question 
-            _questionBlocks[_currentQuestion - 1].gameObject.SetActive(false);
-            _questionBlocks[_currentQuestion].gameObject.SetActive(true);
-            _currentQuestion += 1;
-
-            // set Btns active / inactive 
-            _nextBtn.SetActive(false);
-            _prevBtn.SetActive(true);
-        }
-    }
     #endregion
 
     #region Answers
+    public void  QuestionAnswerSelected(int answerType)
+    {
+       switch(_currentQuestion)
+       {
+            case 1:
+                Question1AnswerSelected(answerType);
+                break;
+            case 2:
+                Question2AnswerSelected(answerType);
+                break;
+            default:
+                break;
+       }
+    }
 
     public void Question1AnswerSelected(int answerType)
     {
         if(!_question1AnswerSelected)
         {
             _question1AnswerSelected = true;
-            UpdateSubmitBtn();
+            //UpdateSubmitBtn();
         }
 
+        q1AnswerNum = answerType;
         q1Answer = answerTypes[answerType];
         Debug.Log("A1: " + q1Answer);
+
+        // no next btn anymore
+        NextQuestion();
     }
 
     public void Question2AnswerSelected(int answerType)
@@ -90,11 +142,15 @@ public class QuestionManager : MonoBehaviour
         if (!_question2AnswerSelected)
         {
             _question2AnswerSelected = true;
-            UpdateSubmitBtn();
+            //UpdateSubmitBtn();
         }
 
+        q2AnswerNum = answerType;
         q2Answer = answerTypes[answerType];
         Debug.Log("A2: " + q2Answer);
+
+        // no submit btn anymore
+        SubmitAnswers();
     }
 
     private void UpdateSubmitBtn()
@@ -115,12 +171,21 @@ public class QuestionManager : MonoBehaviour
         }
     }
 
+    public void HandleSliderValue()
+    {
+        _sliderValue.text = "" + _slider.value.ToString("F1") + "°C";
+    }
+
     public void SubmitAnswers()
     {
         if (_question1AnswerSelected && _question2AnswerSelected && !q1Answer.Equals(null) && !q2Answer.Equals(null))
         {
-            _studyManager.AppendCSVLine($"Trial:{_studyManager._dataSeperator}{_studyManager.trial}");
-            _studyManager.AppendCSVLine($"Answer 1:{_studyManager._dataSeperator}{q1Answer}{_studyManager._dataSeperator}Answer 2:{_studyManager._dataSeperator}{q1Answer}");
+            var block = _studyManager.currentParticipantList[_studyManager.currentStudyBlock];
+            var trial = _studyManager.initalTrials -_studyManager.trial + 1;
+            var haptic = _studyManager.currentSceneConfig.Item2;
+            var color = _studyManager.currentSceneConfig.Item1;
+            _studyManager.AppendCSVLine($"{block}{_studyManager._dataSeperator}{trial}{_studyManager._dataSeperator}{haptic}{_studyManager._dataSeperator}{color}{_studyManager._dataSeperator}{q1AnswerNum}, {q1Answer}{_studyManager._dataSeperator}{q2AnswerNum}, {q2Answer}");
+
             _studySceneLoader.LoadNextScene();
         }
     }

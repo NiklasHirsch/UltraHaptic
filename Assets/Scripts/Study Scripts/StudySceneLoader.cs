@@ -21,9 +21,11 @@ public class StudySceneLoader : MonoBehaviour
     [SerializeField]
     private string _questionnaireSceneName = "Questionnaire Scene";
 
+    [SerializeField]
+    private string _endSceneName = "End Scene";
+
     private void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if(SceneManager.GetActiveScene().name != _questionnaireSceneName)
@@ -53,7 +55,7 @@ public class StudySceneLoader : MonoBehaviour
     {
         try
         {
-            if (_studyManager.trial > 0)
+            if (_studyManager.trial > 1)
             {
                 _studyManager.trial -= 1;
             }
@@ -63,20 +65,26 @@ public class StudySceneLoader : MonoBehaviour
                 _studyManager.trial = _studyManager.initalTrials;
             }
 
-            switch (_studyManager.currentParticipantList[_studyManager.currentStudyBlock])
+            if (_studyManager.currentStudyBlock >= 0 && _studyManager.currentStudyBlock < _studyManager.currentParticipantList.Count)
             {
-                case PhysicalState.Solid:
-                    //Debug.Log("load - Solid scene");
-                    SceneManager.LoadSceneAsync(_solidSceneName, LoadSceneMode.Single);
-                    break;
-                case PhysicalState.Liquid:
-                    //Debug.Log("load - Liquid scene");
-                    SceneManager.LoadSceneAsync(_liquidSceneName, LoadSceneMode.Single);
-                    break;
-                case PhysicalState.Gas:
-                    //Debug.Log("load - Gas scene");
-                    SceneManager.LoadSceneAsync(_gasSceneName, LoadSceneMode.Single);
-                    break;
+                switch (_studyManager.currentParticipantList[_studyManager.currentStudyBlock])
+                {
+                    case PhysicalState.Solid:
+                        //Debug.Log("load - Solid scene");
+                        SceneManager.LoadSceneAsync(_solidSceneName, LoadSceneMode.Single);
+                        break;
+                    case PhysicalState.Liquid:
+                        //Debug.Log("load - Liquid scene");
+                        SceneManager.LoadSceneAsync(_liquidSceneName, LoadSceneMode.Single);
+                        break;
+                    case PhysicalState.Gas:
+                        //Debug.Log("load - Gas scene");
+                        SceneManager.LoadSceneAsync(_gasSceneName, LoadSceneMode.Single);
+                        break;
+                }
+            } else
+            {
+                SceneManager.LoadSceneAsync(_endSceneName, LoadSceneMode.Single);
             }
         }
         catch (ArgumentException ex)
