@@ -24,12 +24,13 @@ public class StudySceneLoader : MonoBehaviour
     [SerializeField]
     private string _endSceneName = "End Scene";
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if(SceneManager.GetActiveScene().name != _questionnaireSceneName)
             {
+                Debug.Log("---- SPACE ----: load questionnaire scene");
                 LoadQuestionniareScene();
             } else
             {

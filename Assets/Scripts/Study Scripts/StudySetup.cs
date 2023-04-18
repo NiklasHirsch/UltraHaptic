@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using TMPro;
 
 public enum ColorSelection
 {
@@ -30,6 +31,9 @@ public class StudySetup : MonoBehaviour
     [SerializeField]
     private ScriptableStudyManager _studyManager;
 
+    [SerializeField]
+    private TextMeshProUGUI _welcomeparticipantText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +41,7 @@ public class StudySetup : MonoBehaviour
         {
             _studyManager.numberOfParticipants = 30;
         }
+        _welcomeparticipantText.text += $" {_studyManager.participantNumber}:";
 
         _studyManager.currentStudyBlock = 0;
         _studyManager.trial = _studyManager.initalTrials;

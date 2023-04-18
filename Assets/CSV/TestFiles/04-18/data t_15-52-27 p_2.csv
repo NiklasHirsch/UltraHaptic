@@ -1,0 +1,17 @@
+Date:;202318155227
+Participant:;2
+Block;Trial;Haptic;Color;A1;A2
+Solid;2;True;Red;2, Neutral;3, Agree
+Solid;3;False;Red;2, Neutral;2, Neutral
+Solid;4;True;Blue;2, Neutral;2, Neutral
+Solid;5;True;Blue;3, Agree;3, Agree
+Gas;1;True;Blue;1, Disagree;1, Disagree
+Gas;2;False;Red;3, Agree;4, FullyAgree
+Gas;3;True;Neutral;2, Neutral;2, Neutral
+Gas;4;True;Red;1, Disagree;1, Disagree
+Gas;5;True;Neutral;2, Neutral;3, Agree
+Liquid;1;False;Blue;3, Agree;4, FullyAgree
+Liquid;2;True;Blue;1, Disagree;1, Disagree
+Liquid;3;False;Neutral;0, FullyDisagree;0, FullyDisagree
+Liquid;4;False;Blue;2, Neutral;2, Neutral
+Liquid;5;False;Neutral;3, Agree;3, Agree
