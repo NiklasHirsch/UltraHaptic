@@ -8,7 +8,15 @@ public class ResetOrientation : MonoBehaviour
 	[SerializeField] GameObject player;
 	[SerializeField] Camera playerHead;
 
-	public void ResetPosition()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+			ResetPosition();
+        }
+    }
+
+    public void ResetPosition()
 	{
 		//OVRManager.display.RecenterPose();
 
