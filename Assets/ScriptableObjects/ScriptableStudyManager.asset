@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ScriptableStudyManager
   m_EditorClassIdentifier: 
   participantNumber: 2
-  numberOfParticipants: 30
-  initalTrials: 5
-  writePath: E:/Github Projects/UltraHaptic/Assets/CSV/TestFiles/04-17\data t_14-57-26
-    p_1.csv
+  numberOfParticipants: 24
+  initalTrials: 30
+  writePath: C:/Users/admin/Documents/Unity Projects/UltraHaptic/Assets/CSV/TestFiles/04-20\data
+    t_11-35-22 p_2.csv
   _csvSubFolder: TestFiles
   _csvFileName: data
   _dataSeperator: ;
@@ -26,4 +26,4 @@ MonoBehaviour:
   latinSquareList4: 020000000100000000000000
   latinSquareList5: 010000000200000000000000
   latinSquareList6: 010000000000000002000000
-  disableHapticFeedbackElements: 1
+  disableHapticFeedbackElements: 0

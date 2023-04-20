@@ -264,10 +264,10 @@ public class ScriptableStudyManager : ScriptableObject
 
         Debug.Log("< color =#00FF00> File created successfully. </color>");
 
-        writer.WriteLine($"Date:{_dataSeperator}" +
-            $"{DateTime.Now:yyyyddHHmmss}");
+        //writer.WriteLine($"Date:{_dataSeperator}" +
+        //    $"{DateTime.Now:yyyyddHHmmss}");
 
-        writer.WriteLine($"Participant:{_dataSeperator}" + participantNumber);
+        //writer.WriteLine($"Participant:{_dataSeperator}" + participantNumber);
 
         // Main Line
         writer.WriteLine($"Block{_dataSeperator}Trial{_dataSeperator}Haptic{_dataSeperator}Color{_dataSeperator}A1{_dataSeperator}A2");
@@ -300,6 +300,7 @@ public class ScriptableStudyManager : ScriptableObject
 
     public (ColorSelection, bool) GetRandomElementOfTrialList(PhysicalState state)
     {
+        Random.InitState(participantNumber);
         try
         {
             switch (state)

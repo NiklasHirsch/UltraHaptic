@@ -1,0 +1,7 @@
+Date:;202320115148
+Participant:;2
+Block;Trial;Haptic;Color;A1;A2
+Solid;2;False;Red;0, FullyDisagree;4, FullyAgree
+Solid;3;False;Neutral;4, FullyAgree;0, FullyDisagree
+Solid;4;False;Blue;4, FullyAgree;0, FullyDisagree
+Solid;5;True;Blue;2, Neutral;3, Agree

@@ -41,6 +41,9 @@ public class StudySetup : MonoBehaviour
         {
             _studyManager.numberOfParticipants = 30;
         }
+
+        //ToDo Random Seed with p-num
+
         _welcomeparticipantText.text += $" {_studyManager.participantNumber}:";
 
         _studyManager.currentStudyBlock = 0;
