@@ -8,15 +8,33 @@ public class ResetOrientation : MonoBehaviour
 	[SerializeField] GameObject player;
 	[SerializeField] Camera playerHead;
 
-    private void Update()
+	[Header("Hand Reset")]
+	[SerializeField] Transform resetTransformRightHand;
+	[SerializeField] Transform resetTransformLeftHand;
+	[SerializeField] GameObject rightHand;
+	[SerializeField] GameObject leftHand;
+
+	private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-			ResetPosition();
+			ResetPositionToHands();
         }
     }
 
-    public void ResetPosition()
+	public void ResetPositionToHands()
+	{
+		//var roationAngleY = resetTransformRightHand.rotation.eulerAngles.y - playerHead.transform.rotation.eulerAngles.y;
+		//player.transform.Rotate(0, roationAngleY, 0);
+
+		// TODO X & Z
+		var rightDistanceDiff = resetTransformRightHand.position - rightHand.transform.position;
+		var leftDistanceDiff = resetTransformLeftHand.position - leftHand.transform.position;
+		var combinedDiff = (rightDistanceDiff + leftDistanceDiff) / 2;
+		player.transform.position += rightDistanceDiff;
+	}
+
+	public void ResetPosition()
 	{
 		//OVRManager.display.RecenterPose();
 

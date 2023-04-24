@@ -36,13 +36,9 @@ public class SetupPhysicalStateScene : MonoBehaviour
     {
         Debug.Log($"Started - {_physicalState} scene");
 
-        sceneConfig = _studyManager.GetRandomElementOfTrialList(_physicalState);
-        _studyManager.currentSceneConfig = sceneConfig;
+        sceneConfig = _studyManager.GetCurrentSceneConfig(_physicalState);
 
         SetupSceneElements();
-
-        //_studyManager.currentStudyBlock -> 0 = start scene, 1 = first physical state, 2 = second, 3 = third state
-        //_studyManager.AppendCSVLine($"Block {_studyManager.currentStudyBlock}:{_studyManager._dataSeperator}{_physicalState}{_studyManager._dataSeperator}Config:{_studyManager._dataSeperator}{sceneConfig}");
     }
 
     private void SetupSceneElements()
@@ -83,7 +79,7 @@ public class SetupPhysicalStateScene : MonoBehaviour
             }
         }
 
-        // disable ultrahaptics Model
-        _ultrahapticModel.SetActive(addHaptics);
+        // ultrahaptics Model
+        _ultrahapticModel.SetActive(true);
     }
 }

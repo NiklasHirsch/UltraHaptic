@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using System.IO;
 
@@ -16,7 +17,10 @@ public class ScriptableStudyManager : ScriptableObject
     [NonSerialized]
     public List<PhysicalState> currentParticipantList = new List<PhysicalState>();
 
-    public int initalTrials = 5;
+    public int currentStep = 0;
+
+    public int initalTrials = 30;
+
     [NonSerialized]
     public int trial;
 
@@ -298,11 +302,14 @@ public class ScriptableStudyManager : ScriptableObject
     }
     #endregion
 
+    /*
     public (ColorSelection, bool) GetRandomElementOfTrialList(PhysicalState state)
     {
-        Random.InitState(participantNumber);
         try
         {
+            var count = trialSolidConfigList.Count;
+            var last = count - 1;
+
             switch (state)
             {
                 case PhysicalState.Solid:
@@ -311,13 +318,13 @@ public class ScriptableStudyManager : ScriptableObject
                     trialSolidConfigList.RemoveAt(indexS);
                     return elementS;
                 case PhysicalState.Liquid:
-                    var indexL = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
-                    var elementL = trialSolidConfigList[indexL];
+                    var indexL = UnityEngine.Random.Range(0, trialLiquidConfigList.Count - 1);
+                    var elementL = trialLiquidConfigList[indexL];
                     trialSolidConfigList.RemoveAt(indexL);
                     return elementL;
                 case PhysicalState.Gas:
-                    var indexG = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
-                    var elementG = trialSolidConfigList[indexG];
+                    var indexG = UnityEngine.Random.Range(0, trialGasConfigList.Count - 1);
+                    var elementG = trialGasConfigList[indexG];
                     trialSolidConfigList.RemoveAt(indexG);
                     return elementG;
                 default:
@@ -327,5 +334,43 @@ public class ScriptableStudyManager : ScriptableObject
             Debug.LogError(ex);
             return (ColorSelection.Blue, true);
         }
+    }*/
+
+    protected void SetupRandomizedTrialOrder(List<(ColorSelection, bool)> trialList)
+    {
+        var count = trialList.Count;
+        var last = count - 1;
+        for (var i = 0; i < last; ++i)
+        {
+            var r = UnityEngine.Random.Range(i, count);
+            var tmp = trialList[i];
+            trialList[i] = trialList[r];
+            trialList[r] = tmp;
+        }
+    }
+
+    public (ColorSelection, bool) GetCurrentSceneConfig(PhysicalState physicalState)
+    {
+        int currentTrial = trial - 1;
+        (ColorSelection, bool) config;
+        switch (physicalState)
+        {
+            case PhysicalState.Solid:
+                config = trialSolidConfigList[currentTrial];
+                break;
+            case PhysicalState.Liquid:
+                config = trialLiquidConfigList[currentTrial];
+                break;
+            case PhysicalState.Gas:
+                config = trialGasConfigList[currentTrial];
+                break;
+            default:
+                config = (ColorSelection.Neutral, true);
+                break;
+        }
+
+        currentSceneConfig = config;
+        return config;
+
     }
 }

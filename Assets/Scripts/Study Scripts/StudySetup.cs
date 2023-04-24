@@ -28,11 +28,11 @@ public enum AnswerType
 
 public class StudySetup : MonoBehaviour
 {
-    [SerializeField]
-    private ScriptableStudyManager _studyManager;
+    [SerializeField] private ScriptableStudyManager _studyManager;
 
-    [SerializeField]
-    private TextMeshProUGUI _welcomeparticipantText;
+    [SerializeField] private StudySceneLoader _sceneLoader;
+
+    [SerializeField] private TextMeshProUGUI _welcomeparticipantText;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +42,8 @@ public class StudySetup : MonoBehaviour
             _studyManager.numberOfParticipants = 30;
         }
 
-        //ToDo Random Seed with p-num
+        //Set Random Seed with p-num
+        UnityEngine.Random.InitState(_studyManager.participantNumber);
 
         _welcomeparticipantText.text += $" {_studyManager.participantNumber}:";
 
@@ -54,6 +55,11 @@ public class StudySetup : MonoBehaviour
         _studyManager.SetupParticipantList();
 
         _studyManager.SetupWriter();
+
+        if(_studyManager.currentStep > 0)
+        {
+            LoadSceneOfStep(_studyManager.currentStep);
+        }
     }
 
     // Update is called once per frame
@@ -63,6 +69,15 @@ public class StudySetup : MonoBehaviour
         {
             Debug.Log("<color=#FF0000> PARTICIPANT NOT SET OR NEAGTIVE! </color>");
         }
+    }
+
+    private void LoadSceneOfStep(int step)
+    {
+        // TODO
+        // set: trial, currentStdyBlock, currentSceneConfig
+        _studyManager.currentStudyBlock = Mathf.FloorToInt(step / _studyManager.initalTrials);
+        _studyManager.trial = step % _studyManager.initalTrials;
+        _sceneLoader.LoadNextScene();
     }
 
     private void LogList(List<List<PhysicalState>> list)
