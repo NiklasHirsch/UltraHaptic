@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "New ScriptableStudyManager",menuName = "Scriptable Objects/ScriptableStudyManager")]
 public class ScriptableStudyManager : ScriptableObject
@@ -11,25 +12,22 @@ public class ScriptableStudyManager : ScriptableObject
 
     public int participantNumber = 0;
 
-    [RangeEx(6, 60, 6)]
-    public int numberOfParticipants = 30;
+    [RangeEx(6, 60, 6)] public int numberOfParticipants = 30;
 
-    [NonSerialized]
-    public List<PhysicalState> currentParticipantList = new List<PhysicalState>();
+    [NonSerialized] public List<PhysicalState> currentParticipantList = new List<PhysicalState>();
 
     public int currentStep = 0;
 
     public int initalTrials = 30;
 
-    [NonSerialized]
-    public int trial;
+    [NonSerialized] public int trial;
 
     // 0 = start scene, 1 = first physical state, 2 = second, 3 = third state
-    [NonSerialized]
-    public int currentStudyBlock = 0;
+    [NonSerialized] public int currentStudyBlock = 0;
 
-    [NonSerialized]
-    public (ColorSelection, bool) currentSceneConfig;
+    [NonSerialized] public (ColorSelection, bool) currentSceneConfig;
+
+    [NonSerialized] public Vector3 participantPos;
     #endregion
 
     #region csv writer variables
@@ -274,7 +272,7 @@ public class ScriptableStudyManager : ScriptableObject
         //writer.WriteLine($"Participant:{_dataSeperator}" + participantNumber);
 
         // Main Line
-        writer.WriteLine($"Block{_dataSeperator}Trial{_dataSeperator}Haptic{_dataSeperator}Color{_dataSeperator}A1{_dataSeperator}A2");
+        writer.WriteLine($"ID{_dataSeperator}Block{_dataSeperator}Trial{_dataSeperator}Haptic{_dataSeperator}Color{_dataSeperator}A1{_dataSeperator}A2{_dataSeperator}Participant number");
        /*
        writer.WriteLine($"B-LS Block:{_dataSeperator}" +
            $"{latinSquareList[participantNumber - 1][0]}{_dataSeperator}" +
@@ -293,6 +291,21 @@ public class ScriptableStudyManager : ScriptableObject
         writer.WriteLine(input);
 
         CloseWriter();
+    }
+
+    public void DeleteLastCSVLine()
+    {
+        var linesList = File.ReadAllLines(writePath).ToList();
+        linesList.RemoveAt(linesList.Count - 1);
+        File.WriteAllLines(writePath, linesList.ToArray());
+    }
+
+    public void ChangeLastCSVLine(string newText)
+    {
+        string[] arrLine = File.ReadAllLines(writePath);
+        int lastLineIndex = arrLine.Length - 1;
+        arrLine[lastLineIndex] = newText;
+        File.WriteAllLines(writePath, arrLine);
     }
 
     public void CloseWriter()
@@ -372,5 +385,70 @@ public class ScriptableStudyManager : ScriptableObject
         currentSceneConfig = config;
         return config;
 
+    }
+
+    public string GetUniqueID()
+    {
+        string returnString = "";
+        // solid = 1; liquid = 2; gas = 3;
+        var block = currentParticipantList[currentStudyBlock];
+
+        switch (block)
+        {
+            case PhysicalState.Solid:
+                returnString += "1";
+                break;
+            case PhysicalState.Liquid:
+                returnString += "2";
+                break;
+            case PhysicalState.Gas:
+                returnString += "3";
+                break;
+        }
+        
+        // blue = 1; neutral = 2; red = 3;
+        var color = currentSceneConfig.Item1;
+
+        switch (color)
+        {
+            case ColorSelection.Blue:
+                returnString += "1";
+                break;
+            case ColorSelection.Neutral:
+                returnString += "2";
+                break;
+            case ColorSelection.Red:
+                returnString += "3";
+                break;
+        }
+
+        // no haptic = 1; haptic = 2;
+        var haptic = currentSceneConfig.Item2;
+
+        if (haptic)
+        {
+            returnString += "2";
+        } else
+        {
+            returnString += "1";
+        }
+
+        // in trial block time of combination 1st time = 1 .... 5th time = 5;
+        returnString += CountOccurrencesUpToIndex(trialSolidConfigList, currentSceneConfig, trial - 1).ToString();
+
+        return returnString;
+    }
+
+    public int CountOccurrencesUpToIndex(List<(ColorSelection, bool)> list, (ColorSelection, bool) element, int index)
+    {
+        int count = 0;
+        for (int i = 0; i <= index && i < list.Count; i++)
+        {
+            if (list[i].Equals(element))
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }

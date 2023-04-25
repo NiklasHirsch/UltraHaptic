@@ -12,6 +12,13 @@ public class SensibleObject : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Bone"))
         {
+            if (handleSensation.collisionTimer && handleSensation.activeTriggerObjects.Count == 0)
+            {
+                Debug.Log($"<color=blue> Inside Count: {handleSensation.activeTriggerObjects.Count} </color>");
+                // first contact -> start timer
+                handleSensation.startTimer = true;
+            }
+
             handleSensation.activeTriggerObjects.Add(new TriggerObject(gameObject, other));
             handleSensation.UpdateSensation();
 

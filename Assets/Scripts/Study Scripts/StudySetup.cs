@@ -48,7 +48,7 @@ public class StudySetup : MonoBehaviour
         _welcomeparticipantText.text += $" {_studyManager.participantNumber}:";
 
         _studyManager.currentStudyBlock = 0;
-        _studyManager.trial = _studyManager.initalTrials;
+        _studyManager.trial = 0;//_studyManager.initalTrials;
 
         _studyManager.SetupLatinSquareList();
 
@@ -73,8 +73,6 @@ public class StudySetup : MonoBehaviour
 
     private void LoadSceneOfStep(int step)
     {
-        // TODO
-        // set: trial, currentStdyBlock, currentSceneConfig
         _studyManager.currentStudyBlock = Mathf.FloorToInt(step / _studyManager.initalTrials);
         _studyManager.trial = step % _studyManager.initalTrials;
         _sceneLoader.LoadNextScene();

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ResetOrientation : MonoBehaviour
 {
+	[SerializeField] ScriptableStudyManager _studymanager;
 	[SerializeField] Transform resetTransform;
 	[SerializeField] GameObject player;
 	[SerializeField] Camera playerHead;
@@ -32,6 +33,8 @@ public class ResetOrientation : MonoBehaviour
 		var leftDistanceDiff = resetTransformLeftHand.position - leftHand.transform.position;
 		var combinedDiff = (rightDistanceDiff + leftDistanceDiff) / 2;
 		player.transform.position += rightDistanceDiff;
+
+		_studymanager.participantPos = player.transform.position;
 	}
 
 	public void ResetPosition()

@@ -6,29 +6,23 @@ public class SetupPhysicalStateScene : MonoBehaviour
 {
     [Header("General Settings")]
     #region general
-    [SerializeField]
-    private ScriptableStudyManager _studyManager;
+    [SerializeField] private ScriptableStudyManager _studyManager;
 
-    [SerializeField]
-    private PhysicalState _physicalState;
+    [SerializeField] GameObject interactionOVRRig;
+
+    [SerializeField] private PhysicalState _physicalState;
     #endregion
 
     [Header("Scene Elements Settings - disbabled/enabled")]
-    [SerializeField]
-    private GameObject _ultrahapticModel;
+    [SerializeField] private GameObject _ultrahapticModel;
 
-    [SerializeField]
-    private GameObject _hapticElements;
+    [SerializeField] private GameObject _hapticElements;
 
-    [SerializeField]
-    private CollisionToSensation _collisionToSensation;
+    [SerializeField] private CollisionToSensation _collisionToSensation;
 
-    [SerializeField]
-    private GameObject _blueSate;
-    [SerializeField]
-    private GameObject _neutralSate;
-    [SerializeField]
-    private GameObject _redSate;
+    [SerializeField] private GameObject _blueSate;
+    [SerializeField] private GameObject _neutralSate;
+    [SerializeField] private GameObject _redSate;
 
     private (ColorSelection, bool) sceneConfig;
 
@@ -43,9 +37,16 @@ public class SetupPhysicalStateScene : MonoBehaviour
 
     private void SetupSceneElements()
     {
+        SetupOVRPosition();
+
         SetupHaptics();
 
         SetupColors();
+    }
+
+    private void SetupOVRPosition()
+    {
+        interactionOVRRig.transform.position = _studyManager.participantPos;
     }
 
     private void SetupColors()

@@ -4,7 +4,7 @@ using UnityEngine;
 using Leap.Unity;
 using System;
 using UltrahapticsCoreAsset;
-
+using UnityEngine.UI;
 
 public class TriggerObject : MonoBehaviour
 {
@@ -53,6 +53,17 @@ public class TriggerObject : MonoBehaviour
 
 public class HandleSensation : MonoBehaviour
 {
+    [Header("Timer Settings")]
+
+    [SerializeField] private Image timerBar;
+    [SerializeField] private float maxTime = 5.0f;
+    private float timeLeft;
+    public bool collisionTimer = false;
+    [NonSerialized] public bool startTimer = false;
+
+    [SerializeField] private StudySceneLoader sceneLoader;
+
+    [Header("Collision Settings")]
     public CollisionToSensation collisionToSensation;
 
     [SerializeField]
@@ -75,11 +86,27 @@ public class HandleSensation : MonoBehaviour
                 new Vector3(0,0,0),
             };
 
-    private void Update()
-    { 
+    void Start()
+    {
+        timerBar = GetComponent<Image>();
+        timeLeft = maxTime;
+    }
+
+    void Update()
+    {
+        if (timeLeft > 0)
+        {
+            Debug.Log($"<color=green>Time Left: {timeLeft} </color>");
+            timeLeft -= Time.deltaTime;
+            timerBar.fillAmount = timeLeft / maxTime;
+        } else {
+            NextSceneAfteTimer();
+        }
+
         UpdateSensation();
     }
 
+    
     public void UpdateSensation()
     {
         //Debug.Log("Objects in List: " + activeTriggerObjects.Count);
@@ -214,8 +241,12 @@ public class HandleSensation : MonoBehaviour
         return UnityEngine.Random.Range(minNoise, maxNoise);
     }
 
+    public void NextSceneAfteTimer()
+    {
 
-
+        Debug.Log("<color=red> Load Next Scene </color>");
+        sceneLoader.LoadNextScene();
+    }
 
     // --------------------------------------- older Methods ------------------------------------
     private Vector3 CalculateNewPositionForTip(GameObject obj)

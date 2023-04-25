@@ -28,15 +28,21 @@ public class StudySceneLoader : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(SceneManager.GetActiveScene().name != _questionnaireSceneName)
+            if (SceneManager.GetActiveScene().name != _questionnaireSceneName)
             {
                 Debug.Log("---- SPACE ----: load questionnaire scene");
                 LoadQuestionniareScene();
-            } else
+            }
+            else
             {
-                Debug.Log("---- SPACE ---- Trials:" + _studyManager.trial + ", Inital Trials: " +  _studyManager.initalTrials);
+                Debug.Log("---- SPACE ---- Trials:" + _studyManager.trial + ", Inital Trials: " + _studyManager.initalTrials);
                 LoadNextScene();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            LoadPreviousScene();
         }
     }
 
@@ -56,14 +62,16 @@ public class StudySceneLoader : MonoBehaviour
     {
         try
         {
-            if (_studyManager.trial > 1)
+            if (_studyManager.trial < _studyManager.initalTrials)
             {
-                _studyManager.trial -= 1;
+                _studyManager.trial += 1;
+                //_studyManager.trial -= 1;
             }
             else
             {
                 _studyManager.currentStudyBlock += 1;
-                _studyManager.trial = _studyManager.initalTrials;
+                _studyManager.trial = 0;
+                //_studyManager.trial = _studyManager.initalTrials;
             }
 
             if (_studyManager.currentStudyBlock >= 0 && _studyManager.currentStudyBlock < _studyManager.currentParticipantList.Count)
@@ -94,19 +102,31 @@ public class StudySceneLoader : MonoBehaviour
         }
     }
 
-    private void LoadNext(string sceneName)
+    public void LoadPreviousScene()
     {
-        if (_studyManager.trial > 0)
+        int lastSceneIndex = SceneManager.GetActiveScene().buildIndex - 1;
+
+        SceneManager.LoadScene(lastSceneIndex);
+
+        if (_studyManager.trial == 0)
         {
-            _studyManager.trial -= 1;
+            _studyManager.currentStudyBlock -= 1;
+            _studyManager.trial = _studyManager.initalTrials - 1;
         }
         else
         {
-            _studyManager.currentStudyBlock += 1;
-            _studyManager.trial = _studyManager.initalTrials;
+            _studyManager.trial -= 1;
         }
 
-        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        if (SceneManager.GetSceneAt(lastSceneIndex).name != _questionnaireSceneName)
+        {
+            _studyManager.DeleteLastCSVLine();
+            LoadQuestionniareScene();
+        }
+        else
+        {
+            LoadNextScene();
+        }
     }
 
     public void ReloadScene()
