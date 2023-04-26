@@ -8,15 +8,18 @@ public class SensibleObject : MonoBehaviour
     public CollisionToSensation collisionToSensation;
     public HandleSensation handleSensation;
 
+    public bool enableTimer = true;
+    public SetupPhysicalStateScene setupPScene;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Equals("Bone"))
         {
-            if (handleSensation.collisionTimer && handleSensation.activeTriggerObjects.Count == 0)
+            if (enableTimer && handleSensation.activeTriggerObjects.Count == 0)
             {
                 Debug.Log($"<color=blue> Inside Count: {handleSensation.activeTriggerObjects.Count} </color>");
                 // first contact -> start timer
-                handleSensation.startTimer = true;
+                setupPScene.startTimer = true;
             }
 
             handleSensation.activeTriggerObjects.Add(new TriggerObject(gameObject, other));

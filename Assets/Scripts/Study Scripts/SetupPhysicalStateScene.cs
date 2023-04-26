@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SetupPhysicalStateScene : MonoBehaviour
 {
@@ -24,6 +24,13 @@ public class SetupPhysicalStateScene : MonoBehaviour
     [SerializeField] private GameObject _neutralSate;
     [SerializeField] private GameObject _redSate;
 
+    [Header("Timer Settings")]
+    [SerializeField] private StudySceneLoader sceneLoader;
+    [SerializeField] private Image timerBar;
+    [SerializeField] private float maxTime = 5.0f;
+    private float timeLeft;
+    [NonSerialized] public bool startTimer = false;
+
     private (ColorSelection, bool) sceneConfig;
 
     void Start()
@@ -33,6 +40,28 @@ public class SetupPhysicalStateScene : MonoBehaviour
         sceneConfig = _studyManager.GetCurrentSceneConfig(_physicalState);
 
         SetupSceneElements();
+
+        //timerBar = GetComponent<Image>();
+        timeLeft = maxTime;
+    }
+
+    void Update()
+    {
+        if (startTimer)
+        {
+            if (timeLeft > 0)
+            {
+                Debug.Log($"<color=green>Time Left: {timeLeft} </color>");
+                timeLeft -= Time.deltaTime;
+                timerBar.fillAmount = 1 - (timeLeft / maxTime);
+            }
+            else
+            {
+                Debug.Log("<color=red> Load Next Scene </color>");
+                sceneLoader.LoadQuestionniareScene();
+            }
+        }
+        
     }
 
     private void SetupSceneElements()

@@ -88,12 +88,13 @@ public class HandleSensation : MonoBehaviour
 
     void Start()
     {
-        timerBar = GetComponent<Image>();
-        timeLeft = maxTime;
+        //timerBar = GetComponent<Image>();
+        //timeLeft = maxTime;
     }
 
     void Update()
     {
+        /*
         if (timeLeft > 0)
         {
             Debug.Log($"<color=green>Time Left: {timeLeft} </color>");
@@ -101,7 +102,7 @@ public class HandleSensation : MonoBehaviour
             timerBar.fillAmount = timeLeft / maxTime;
         } else {
             NextSceneAfteTimer();
-        }
+        }*/
 
         UpdateSensation();
     }

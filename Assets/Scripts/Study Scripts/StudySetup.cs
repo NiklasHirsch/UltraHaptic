@@ -21,7 +21,9 @@ public enum AnswerType
 {
     FullyDisagree,
     Disagree,
+    PartialDisagree,
     Neutral,
+    PartialAgree,
     Agree,
     FullyAgree
 }

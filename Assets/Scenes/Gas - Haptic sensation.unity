@@ -5307,6 +5307,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionToSensation: {fileID: 89283337}
   handleSensation: {fileID: 962024262}
+  enableTimer: 1
+  setupPScene: {fileID: 1234677736}
 --- !u!54 &222553208
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5548,6 +5550,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionToSensation: {fileID: 89283337}
   handleSensation: {fileID: 962024262}
+  enableTimer: 1
+  setupPScene: {fileID: 1234677736}
 --- !u!54 &474193106
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15803,15 +15807,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736703653}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0.5}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.0011, z: -0.2011}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 85075085}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &749866503
 GameObject:
   m_ObjectHideFlags: 0
@@ -20822,6 +20826,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionToSensation: {fileID: 89283337}
   handleSensation: {fileID: 962024262}
+  enableTimer: 1
+  setupPScene: {fileID: 1234677736}
 --- !u!54 &898277908
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -26193,6 +26199,9 @@ MonoBehaviour:
   _blueSate: {fileID: 749866503}
   _neutralSate: {fileID: 1112398188}
   _redSate: {fileID: 477928630}
+  sceneLoader: {fileID: 1234677738}
+  timerBar: {fileID: 1922867038}
+  maxTime: 5
 --- !u!4 &1234677737
 Transform:
   m_ObjectHideFlags: 0
@@ -26206,7 +26215,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1234677738
 MonoBehaviour:
@@ -41665,7 +41674,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
