@@ -1,0 +1,8 @@
+ID;Block;Trial;Haptic;Color;A1;A2;Participant number
+3121;Gas;1;True;Blue;4, PartialAgree;5, Agree;4
+3111;Gas;2;False;Blue;6, FullyAgree;5, Agree;4
+3221;Gas;3;True;Neutral;2, PartialDisagree;3, Neutral;4
+3211;Gas;4;False;Neutral;6, FullyAgree;1, Disagree;4
+3321;Gas;5;True;Red;4, PartialAgree;3, Neutral;4
+3311;Gas;6;False;Red;6, FullyAgree;6, FullyAgree;4
+3122;Gas;7;True;Blue;6, FullyAgree;6, FullyAgree;4

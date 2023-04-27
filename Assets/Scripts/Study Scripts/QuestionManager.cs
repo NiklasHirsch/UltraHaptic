@@ -51,7 +51,9 @@ public class QuestionManager : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(DisableBtns());
         ChangeAnswerHeaders(answerHeadersQ1);
+        
     }
         private void Update()
     {
@@ -63,6 +65,30 @@ public class QuestionManager : MonoBehaviour
             ChangeAnswerHeaders(answerHeadersQ2);
         }
     }
+
+    IEnumerator DisableBtns()
+    {
+        int index = 0;
+        foreach (GameObject obj in answerObjects)
+        {
+
+            var textObject = obj.transform.GetChild(1).gameObject;
+            textObject.GetComponent<Button>().interactable = false;
+            index++;
+        }
+        yield return new WaitForSeconds(0.5f);
+
+        int index2 = 0;
+        foreach (GameObject obj in answerObjects)
+        {
+
+            var textObject = obj.transform.GetChild(1).gameObject;
+            textObject.GetComponent<Button>().interactable = true;
+            index2++;
+        }
+        yield return null;
+    }
+
 
     #region Answers
     private void ChangeAnswerHeaders(List<string> answerHeaders)
