@@ -75,7 +75,11 @@ public class SetupPhysicalStateScene : MonoBehaviour
 
     private void SetupOVRPosition()
     {
+        // Setup Position
         interactionOVRRig.transform.position = _studyManager.participantPos;
+
+        // Setup Rotation
+        interactionOVRRig.transform.rotation = _studyManager.participantRot;
     }
 
     private void SetupColors()

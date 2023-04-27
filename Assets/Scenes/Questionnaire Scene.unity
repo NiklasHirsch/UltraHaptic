@@ -1455,7 +1455,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48472721}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.8309963, z: -0.42308414}
+  m_LocalPosition: {x: 0, y: -0.83, z: -0.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14337,19 +14337,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7430aaf6fd8aae4fabee007a5d8e455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _studyManager: {fileID: 11400000, guid: 22fd4627c3604fa4e80b563506a028dc, type: 2}
+  _studySceneLoader: {fileID: 1982739460}
   _questionBlocks:
   - {fileID: 1750723991}
   - {fileID: 1566286014}
+  answerTypes: 00000000010000000200000003000000040000000500000006000000
+  answerObjects:
+  - {fileID: 1440794467}
+  - {fileID: 627810835}
+  - {fileID: 2117801855}
+  - {fileID: 87504627}
+  - {fileID: 1988165544}
+  - {fileID: 1395030347}
+  - {fileID: 299870429}
+  answerHeadersQ1:
+  - fully disagree
+  - disagree
+  - partial disagree
+  - neutral
+  - partial agree
+  - agree
+  - fully agree
+  answerHeadersQ2:
+  - colder
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - warmer
+  _slider: {fileID: 1856163150}
+  _sliderValue: {fileID: 143190212}
   _prevBtn: {fileID: 1567352463}
   _nextBtn: {fileID: 837431743}
   _submitBtnPanel: {fileID: 157254930}
   _submitBtnText: {fileID: 1717010467}
   _submitBtnIcon: {fileID: 6256218482290924272}
-  answerTypes: 00000000010000000200000003000000040000000500000006000000
-  _studyManager: {fileID: 11400000, guid: 22fd4627c3604fa4e80b563506a028dc, type: 2}
-  _studySceneLoader: {fileID: 1982739460}
-  _slider: {fileID: 1856163150}
-  _sliderValue: {fileID: 143190212}
 --- !u!1 &610614778
 GameObject:
   m_ObjectHideFlags: 0

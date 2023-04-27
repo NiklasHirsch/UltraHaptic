@@ -27,7 +27,8 @@ public class ScriptableStudyManager : ScriptableObject
 
     [NonSerialized] public (ColorSelection, bool) currentSceneConfig;
 
-    [NonSerialized] public Vector3 participantPos;
+    [NonSerialized] public Vector3 participantPos = new Vector3(0, -0.83f, -0.37f);
+    [NonSerialized] public Quaternion participantRot;
     #endregion
 
     #region csv writer variables
