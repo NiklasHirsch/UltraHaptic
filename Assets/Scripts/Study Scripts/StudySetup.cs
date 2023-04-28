@@ -17,7 +17,7 @@ public enum PhysicalState
     Gas
 }
 
-public enum AnswerType
+public enum AnswerTypeQ1
 {
     FullyDisagree,
     Disagree,
@@ -26,6 +26,17 @@ public enum AnswerType
     PartialAgree,
     Agree,
     FullyAgree
+}
+
+public enum AnswerTypeQ2
+{
+    Colder = 0,
+    C2 = 1,
+    C1 = 2,
+    Neutral = 3,
+    W1 = 4,
+    W2 = 5,
+    Warmer = 6
 }
 
 public class StudySetup : MonoBehaviour
@@ -69,14 +80,14 @@ public class StudySetup : MonoBehaviour
     {
         if (_studyManager.participantNumber < 1)
         {
-            Debug.Log("<color=#FF0000> PARTICIPANT NOT SET OR NEAGTIVE! </color>");
+            Debug.Log("<color=red> PARTICIPANT NOT SET OR NEAGTIVE! </color>");
         }
     }
 
     private void LoadSceneOfStep(int step)
     {
         _studyManager.currentStudyBlock = Mathf.FloorToInt(step / _studyManager.initalTrials);
-        _studyManager.trial = step % _studyManager.initalTrials;
+        _studyManager.trial = (step % _studyManager.initalTrials) - 1;
         _sceneLoader.LoadNextScene();
     }
 

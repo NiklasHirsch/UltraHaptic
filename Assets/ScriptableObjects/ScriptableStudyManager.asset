@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ScriptableStudyManager
   m_EditorClassIdentifier: 
   participantNumber: 1
-  numberOfParticipants: 30
+  numberOfParticipants: 0
   startWithStep: 0
   initalTrials: 30
-  writePath: E:/Github Projects/UltraHaptic/Assets/CSV/TestFiles/04-28\data t_13-24-52
+  writePath: E:/Github Projects/UltraHaptic/Assets/CSV/TestFiles/04-28\data t_16-41-04
     p_1.csv
   _csvSubFolder: TestFiles
   _csvFileName: data

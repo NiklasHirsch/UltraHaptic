@@ -14342,7 +14342,8 @@ MonoBehaviour:
   _questionBlocks:
   - {fileID: 1750723991}
   - {fileID: 1566286014}
-  answerTypes: 00000000010000000200000003000000040000000500000006000000
+  answerTypesQ1: 00000000010000000200000003000000040000000500000006000000
+  answerTypesQ2: 00000000010000000200000003000000040000000500000006000000
   answerObjects:
   - {fileID: 1440794467}
   - {fileID: 627810835}
@@ -45450,6 +45451,7 @@ MonoBehaviour:
   _liquidSceneName: Liquid - Haptic sensation
   _gasSceneName: Gas - Haptic sensation
   _questionnaireSceneName: Questionnaire Scene
+  _startSceneName: Start Scene
   _endSceneName: End Scene
 --- !u!114 &1982739461
 MonoBehaviour:

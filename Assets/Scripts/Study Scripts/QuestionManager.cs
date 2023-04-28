@@ -14,7 +14,8 @@ public class QuestionManager : MonoBehaviour
     [Header("Question / Answer Settings")]
     [SerializeField] private List<GameObject> _questionBlocks;
 
-    public List<AnswerType> answerTypes = new List<AnswerType>(7);
+    public List<AnswerTypeQ1> answerTypesQ1 = new List<AnswerTypeQ1>(7);
+    public List<AnswerTypeQ2> answerTypesQ2 = new List<AnswerTypeQ2>(7);
     public List<GameObject> answerObjects = new List<GameObject>(7);
     public List<string> answerHeadersQ1 = new List<string>(7);
     public List<string> answerHeadersQ2 = new List<string>(7);
@@ -41,8 +42,8 @@ public class QuestionManager : MonoBehaviour
     private bool _question1AnswerSelected = false;
     private bool _question2AnswerSelected = false;
 
-    private AnswerType q1Answer;
-    private AnswerType q2Answer;
+    private AnswerTypeQ1 q1Answer;
+    private AnswerTypeQ2 q2Answer;
 
     private int q1AnswerNum;
     private int q2AnswerNum;
@@ -102,7 +103,7 @@ public class QuestionManager : MonoBehaviour
             index++;
         }
     }
-    public void  QuestionAnswerSelected(int answerType)
+    public void QuestionAnswerSelected(int answerType)
     {
        switch(_currentQuestion)
        {
@@ -126,7 +127,7 @@ public class QuestionManager : MonoBehaviour
         }
 
         q1AnswerNum = answerType;
-        q1Answer = answerTypes[answerType];
+        q1Answer = answerTypesQ1[answerType];
         Debug.Log($"<color=green> A1: {q1Answer} </color>");
 
         // no next btn anymore
@@ -142,7 +143,7 @@ public class QuestionManager : MonoBehaviour
         }
 
         q2AnswerNum = answerType;
-        q2Answer = answerTypes[answerType];
+        q2Answer = answerTypesQ2[answerType];
         Debug.Log($"<color=green> A2: {q2Answer} </color>");
 
         // no submit btn anymore

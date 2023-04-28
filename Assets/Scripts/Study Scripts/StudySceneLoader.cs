@@ -36,7 +36,6 @@ public class StudySceneLoader : MonoBehaviour
             {
                 LoadNextScene();
             }
-
             else if (SceneManager.GetActiveScene().name != _questionnaireSceneName && SceneManager.GetActiveScene().name != _endSceneName)
             {
                 LoadQuestionniareScene();
@@ -72,20 +71,21 @@ public class StudySceneLoader : MonoBehaviour
             Debug.LogError("Error loading scene: " + ex.Message);
         }
     }
-    public void LoadNextScene()
+    public void LoadNextScene(bool changeTrials = true)
     {
         try
         {
-            if (_studyManager.trial < _studyManager.initalTrials)
+            if (changeTrials)
             {
-                _studyManager.trial += 1;
-                //_studyManager.trial -= 1;
-            }
-            else
-            {
-                _studyManager.currentStudyBlock += 1;
-                _studyManager.trial = 0;
-                //_studyManager.trial = _studyManager.initalTrials;
+                if (_studyManager.trial < _studyManager.initalTrials)
+                {
+                    _studyManager.trial += 1;
+                }
+                else
+                {
+                    _studyManager.currentStudyBlock += 1;
+                    _studyManager.trial = 0;
+                }
             }
 
             if (_studyManager.currentStudyBlock >= 0 && _studyManager.currentStudyBlock < _studyManager.currentParticipantList.Count)
@@ -130,19 +130,21 @@ public class StudySceneLoader : MonoBehaviour
         }
 
         Debug.Log($"<color=blue> Jumped backward trial: {_studyManager.trial}</color>");
-        if (_studyManager.trial == 0)
-        {
-            _studyManager.currentStudyBlock -= 1;
-            _studyManager.trial = _studyManager.initalTrials - 1;
-        }
-        else
-        {
-            _studyManager.trial -= 1;
-        }
+        
 
         if (SceneManager.GetActiveScene().name != _questionnaireSceneName)
         {
-            if(_studyManager.trial == 0 && _studyManager.currentStudyBlock == 0)
+            if (_studyManager.trial == 0 && _studyManager.currentStudyBlock > 0)
+            {
+                _studyManager.currentStudyBlock -= 1;
+                _studyManager.trial = _studyManager.initalTrials - 1;
+            }
+            else
+            {
+                _studyManager.trial -= 1;
+            }
+
+            if (_studyManager.trial == 0 && _studyManager.currentStudyBlock == 0)
             {
                 LoadStartScene();
             } else
@@ -153,7 +155,18 @@ public class StudySceneLoader : MonoBehaviour
         }
         else
         {
-            LoadNextScene();
+            /*
+            if (_studyManager.trial == 0 && _studyManager.currentStudyBlock > 0)
+            {
+                _studyManager.currentStudyBlock -= 1;
+                _studyManager.trial = _studyManager.initalTrials - 1;
+            }
+            else
+            {
+                _studyManager.trial -= 1;
+            }*/
+
+            LoadNextScene(false);
         }
     }
 

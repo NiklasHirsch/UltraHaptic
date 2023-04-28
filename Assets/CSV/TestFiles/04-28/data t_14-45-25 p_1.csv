@@ -1,0 +1,4 @@
+ID;Block;Trial;Haptic;Color;A1;A2;Participant number
+1123;Solid;13;True;Blue;1, Disagree;2, PartialDisagree;1
+1113;Solid;14;False;Blue;5, Agree;5, Agree;1
+1212;Solid;15;False;Neutral;skipped;skipped;1
