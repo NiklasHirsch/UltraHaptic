@@ -35,13 +35,13 @@ public class SetupPhysicalStateScene : MonoBehaviour
 
     void Start()
     {
-        Debug.Log($"Started - {_physicalState} scene");
-
         sceneConfig = _studyManager.GetCurrentSceneConfig(_physicalState);
+
+        // Log state to have in in the console
+        Debug.Log($"<color=yellow> Started - ID: {_studyManager.GetUniqueID()}, Trial: {_studyManager.trial}, Config: {sceneConfig} </color>");
 
         SetupSceneElements();
 
-        //timerBar = GetComponent<Image>();
         timeLeft = maxTime;
     }
 
@@ -51,13 +51,11 @@ public class SetupPhysicalStateScene : MonoBehaviour
         {
             if (timeLeft > 0)
             {
-                Debug.Log($"<color=green>Time Left: {timeLeft} </color>");
                 timeLeft -= Time.deltaTime;
                 timerBar.fillAmount = 1 - (timeLeft / maxTime);
             }
             else
             {
-                Debug.Log("<color=red> Load Next Scene </color>");
                 sceneLoader.LoadQuestionniareScene();
             }
         }

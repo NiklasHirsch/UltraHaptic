@@ -127,7 +127,7 @@ public class QuestionManager : MonoBehaviour
 
         q1AnswerNum = answerType;
         q1Answer = answerTypes[answerType];
-        Debug.Log("A1: " + q1Answer);
+        Debug.Log($"<color=green> A1: {q1Answer} </color>");
 
         // no next btn anymore
         NextQuestion();
@@ -143,7 +143,7 @@ public class QuestionManager : MonoBehaviour
 
         q2AnswerNum = answerType;
         q2Answer = answerTypes[answerType];
-        Debug.Log("A2: " + q2Answer);
+        Debug.Log($"<color=green> A2: {q2Answer} </color>");
 
         // no submit btn anymore
         SubmitAnswers();

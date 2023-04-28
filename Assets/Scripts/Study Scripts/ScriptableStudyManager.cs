@@ -16,7 +16,7 @@ public class ScriptableStudyManager : ScriptableObject
 
     [NonSerialized] public List<PhysicalState> currentParticipantList = new List<PhysicalState>();
 
-    public int currentStep = 0;
+    public int startWithStep = 0;
 
     public int initalTrials = 30;
 

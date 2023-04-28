@@ -58,9 +58,9 @@ public class StudySetup : MonoBehaviour
 
         _studyManager.SetupWriter();
 
-        if(_studyManager.currentStep > 0)
+        if(_studyManager.startWithStep > 0)
         {
-            LoadSceneOfStep(_studyManager.currentStep);
+            LoadSceneOfStep(_studyManager.startWithStep);
         }
     }
 

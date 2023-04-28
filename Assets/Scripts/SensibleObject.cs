@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Leap.Unity;
+using LSL;
 
 public class SensibleObject : MonoBehaviour
 {
@@ -11,66 +11,57 @@ public class SensibleObject : MonoBehaviour
     public bool enableTimer = true;
     public SetupPhysicalStateScene setupPScene;
 
+
+    #region LSL
+    string StreamName = "LSL4Unity.Samples.SimpleCollisionEvent";
+    string StreamType = "Markers";
+    private StreamOutlet outlet;
+    private string[] sample = { "" };
+
+    void Start()
+    {
+        var hash = new Hash128();
+        hash.Append(StreamName);
+        hash.Append(StreamType);
+        hash.Append(gameObject.GetInstanceID());
+        StreamInfo streamInfo = new StreamInfo(StreamName, StreamType, 1, LSL.LSL.IRREGULAR_RATE,
+            channel_format_t.cf_string, hash.ToString());
+        outlet = new StreamOutlet(streamInfo);
+    }
+    #endregion
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Equals("Bone"))
         {
-            if (enableTimer && handleSensation.activeTriggerObjects.Count == 0)
+            if (handleSensation.activeTriggerObjects.Count == 0)
             {
-                Debug.Log($"<color=blue> Inside Count: {handleSensation.activeTriggerObjects.Count} </color>");
-                // first contact -> start timer
-                setupPScene.startTimer = true;
+                // LSL send data
+                if (outlet != null)
+                {
+                    sample[0] = "TriggerEnter " + gameObject.GetInstanceID();
+                    outlet.push_sample(sample);
+                }
+                // start timer
+                if (enableTimer)
+                {
+                    //Debug.Log($"<color=blue> Inside Count: {handleSensation.activeTriggerObjects.Count} </color>");
+                    setupPScene.startTimer = true;
+                }
             }
 
             handleSensation.activeTriggerObjects.Add(new TriggerObject(gameObject, other));
             handleSensation.UpdateSensation();
-
-            //Debug.Log("Bone triggered - TriggerObjects: " + handleSensation.activeTriggerObjects);
-            //Debug.Log("Objects in List: " + handleSensation.activeTriggerObjects.Count);
         }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        //TriggerObject searchT = new TriggerObject(gameObject, other);
-        //TriggerObject found = handleSensation.activeTriggerObjects.Find(t => t == searchT);
-        //handleSensation.activeTriggerObjects.Contains(searchT);
-        //int index = handleSensation.activeTriggerObjects.IndexOf(searchT);
-        //int index = handleSensation.activeTriggerObjects.BinarySearch(searchT);
-        
-        //TriggerObject found = handleSensation.activeTriggerObjects.Find(t => t.colliderGameObject.name == other.gameObject.name);
-        //Debug.Log("Stay TriggerObject, Found: " + found);
-
-        /*
-        foreach (TriggerObject triggerObject in handleSensation.activeTriggerObjects)
-        {
-            Debug.Log(triggerObject.colliderGameObject.name);
-        }*/
-
-        //Debug.Log("Collider ID: " + other.gameObject.name);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag.Equals("Bone"))
         {
-            //TriggerObject objToRemove = handleSensation.activeTriggerObjects.Find(x => x.ID == other.gameObject.GetInstanceID());
-            //handleSensation.activeTriggerObjects.Remove(objToRemove);
-            //Debug.Log("ObjectToRemove: " + objToRemove);
-
             handleSensation.activeTriggerObjects.Remove(new TriggerObject(gameObject, other));
             
-            /*List<TriggerObject> found = handleSensation.activeTriggerObjects.FindAll(t => t.colliderGameObject.name == other.gameObject.name);
-            foreach (TriggerObject triggerObject in found)
-            {
-                handleSensation.activeTriggerObjects.Remove(triggerObject);
-            }
-            */
-            
             handleSensation.UpdateSensation();
-
-            //Debug.Log("Bone exited - TriggerObjects: " + handleSensation.activeTriggerObjects);
-            //Debug.Log("Objects in List: " + handleSensation.activeTriggerObjects.Count);
         }
     }
 }

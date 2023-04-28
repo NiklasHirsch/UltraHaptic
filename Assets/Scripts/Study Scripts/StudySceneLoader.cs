@@ -22,20 +22,34 @@ public class StudySceneLoader : MonoBehaviour
     private string _questionnaireSceneName = "Questionnaire Scene";
 
     [SerializeField]
+    private string _startSceneName = "Start Scene";
+
+    [SerializeField]
     private string _endSceneName = "End Scene";
 
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (SceneManager.GetActiveScene().name != _questionnaireSceneName)
+            Debug.Log($"<color=blue> Jumped forward trial: {_studyManager.trial} </color>");
+            if(SceneManager.GetActiveScene().name == _startSceneName)
             {
-                Debug.Log("---- SPACE ----: load questionnaire scene");
+                LoadNextScene();
+            }
+
+            else if (SceneManager.GetActiveScene().name != _questionnaireSceneName && SceneManager.GetActiveScene().name != _endSceneName)
+            {
                 LoadQuestionniareScene();
             }
             else
             {
-                Debug.Log("---- SPACE ---- Trials:" + _studyManager.trial + ", Inital Trials: " + _studyManager.initalTrials);
+                var uniqueID = _studyManager.GetUniqueID();
+                var block = _studyManager.currentParticipantList[_studyManager.currentStudyBlock];
+                var trial = _studyManager.currentStudyBlock * 30 + _studyManager.trial;
+                var haptic = _studyManager.currentSceneConfig.Item2;
+                var color = _studyManager.currentSceneConfig.Item1;
+                _studyManager.AppendCSVLine($"{uniqueID}{_studyManager._dataSeperator}{block}{_studyManager._dataSeperator}{trial}{_studyManager._dataSeperator}{haptic}{_studyManager._dataSeperator}{color}{_studyManager._dataSeperator}skipped{_studyManager._dataSeperator}skipped{_studyManager._dataSeperator}{_studyManager.participantNumber}");
+
                 LoadNextScene();
             }
         }
@@ -104,10 +118,18 @@ public class StudySceneLoader : MonoBehaviour
 
     public void LoadPreviousScene()
     {
-        int lastSceneIndex = SceneManager.GetActiveScene().buildIndex - 1;
+        // if started with a inital step other than 0 return if first loaded trial
+        if (_studyManager.startWithStep > 0 && _studyManager.startWithStep == _studyManager.trial - 1 && SceneManager.GetActiveScene().name != _questionnaireSceneName)
+        {
+            return;
+        }
+        // return if start scene
+        if (SceneManager.GetActiveScene().name == _startSceneName)
+        {
+            return;
+        }
 
-        SceneManager.LoadScene(lastSceneIndex);
-
+        Debug.Log($"<color=blue> Jumped backward trial: {_studyManager.trial}</color>");
         if (_studyManager.trial == 0)
         {
             _studyManager.currentStudyBlock -= 1;
@@ -118,15 +140,26 @@ public class StudySceneLoader : MonoBehaviour
             _studyManager.trial -= 1;
         }
 
-        if (SceneManager.GetSceneAt(lastSceneIndex).name != _questionnaireSceneName)
+        if (SceneManager.GetActiveScene().name != _questionnaireSceneName)
         {
-            _studyManager.DeleteLastCSVLine();
-            LoadQuestionniareScene();
+            if(_studyManager.trial == 0 && _studyManager.currentStudyBlock == 0)
+            {
+                LoadStartScene();
+            } else
+            {
+                _studyManager.DeleteLastCSVLine();
+                LoadQuestionniareScene();
+            }
         }
         else
         {
             LoadNextScene();
         }
+    }
+
+    private void LoadStartScene()
+    {
+        SceneManager.LoadSceneAsync(_startSceneName);
     }
 
     public void ReloadScene()
