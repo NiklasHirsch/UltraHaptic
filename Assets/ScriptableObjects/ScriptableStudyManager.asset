@@ -16,9 +16,9 @@ MonoBehaviour:
   numberOfParticipants: 0
   startWithStep: 0
   initalTrials: 30
-  writePath: E:/Github Projects/UltraHaptic/Assets/CSV/TestFiles/05-03\data t_10-49-52
-    p_5.csv
-  _csvSubFolder: TestFiles
+  writePath: E:/Github Projects/UltraHaptic/Assets/CSV/TestFiles/05-03\data t_16-13-52
+    p_1.csv
+  _csvSubFolder: StudyData
   _csvFileName: data
   _dataSeperator: ;
   latinSquareList1: 000000000100000002000000

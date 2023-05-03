@@ -55,8 +55,7 @@ public class StudySetup : MonoBehaviour
             _studyManager.numberOfParticipants = 30;
         }
 
-        //Set Random Seed with p-num
-        UnityEngine.Random.InitState(_studyManager.participantNumber);
+        SetupRandomItems();
 
         _welcomeparticipantText.text += $" {_studyManager.participantNumber}:";
 
@@ -84,9 +83,21 @@ public class StudySetup : MonoBehaviour
         }
     }
 
+    private void SetupRandomItems()
+    {
+        //Set Random Seed with p-num
+        UnityEngine.Random.InitState(_studyManager.participantNumber);
+        _studyManager.SetupRandomizedTrialOrder(_studyManager.trialSolidConfigList);
+        _studyManager.SetupRandomizedTrialOrder(_studyManager.trialLiquidConfigList);
+        _studyManager.SetupRandomizedTrialOrder(_studyManager.trialGasConfigList);
+        LogList(_studyManager.trialSolidConfigList);
+        LogList(_studyManager.trialLiquidConfigList);
+        LogList(_studyManager.trialGasConfigList);
+    }
+
     private void LoadSceneOfStep(int step)
     {
-        _studyManager.currentStudyBlock = Mathf.FloorToInt(step / _studyManager.initalTrials);
+        _studyManager.currentStudyBlock = Mathf.FloorToInt(step / _studyManager.initalTrials);// + 1;
         _studyManager.trial = (step % _studyManager.initalTrials) - 1;
         _sceneLoader.LoadNextScene();
     }
@@ -105,6 +116,22 @@ public class StudySetup : MonoBehaviour
                 
                 listContent += $"{pState}, ";
             }
+            listContent += "\n";
+            listIndex++;
+        }
+
+        Debug.Log("<color=#00FFFF>" + listContent + "</color>");
+    }
+
+    private void LogList(List<(ColorSelection, bool)> list)
+    {
+        // result String of list content
+        string listContent = "";
+
+        int listIndex = 0;
+        foreach (var elem in list)
+        {
+            listContent += $"Color: {elem.Item1}, Haptic: {elem.Item2}";
             listContent += "\n";
             listIndex++;
         }

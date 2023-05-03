@@ -350,7 +350,7 @@ public class ScriptableStudyManager : ScriptableObject
         }
     }*/
 
-    protected void SetupRandomizedTrialOrder(List<(ColorSelection, bool)> trialList)
+    public void SetupRandomizedTrialOrder(List<(ColorSelection, bool)> trialList)
     {
         var count = trialList.Count;
         var last = count - 1;

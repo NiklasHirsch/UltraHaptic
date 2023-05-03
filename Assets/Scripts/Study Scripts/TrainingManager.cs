@@ -39,7 +39,7 @@ public class TrainingManager : MonoBehaviour
 
     private bool _isQ1 = true;
 
-    void Strat() 
+    void Start() 
     { 
         timeLeft = maxTime;
     }

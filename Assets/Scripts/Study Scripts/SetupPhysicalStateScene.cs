@@ -38,7 +38,7 @@ public class SetupPhysicalStateScene : MonoBehaviour
         sceneConfig = _studyManager.GetCurrentSceneConfig(_physicalState);
 
         // Log state to have in in the console
-        Debug.Log($"<color=yellow> Started - ID: {_studyManager.GetUniqueID()}, Trial: {_studyManager.trial}, Config: {sceneConfig} </color>");
+        Debug.Log($"<color=yellow> Started - ID: {_studyManager.GetUniqueID()},  Block: {_studyManager.currentParticipantList[_studyManager.currentStudyBlock]}, Trial: {_studyManager.currentStudyBlock * 30 + _studyManager.trial}, Config: {sceneConfig} </color>");
 
         SetupSceneElements();
 
