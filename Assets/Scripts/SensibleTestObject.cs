@@ -4,14 +4,13 @@ using UnityEngine;
 using LSL;
 using UnityEngine.SceneManagement;
 
-public class SensibleObject : MonoBehaviour
+public class SensibleTestObject : MonoBehaviour
 {
     public CollisionToSensation collisionToSensation;
     public HandleSensation handleSensation;
 
     public bool enableTimer = true;
-    public SetupPhysicalStateScene setupPScene;
-
+    public TrainingManager trainingManager;
 
     #region LSL
     string StreamName = "LSL4Unity.Samples.SimpleCollisionEvent";
@@ -47,7 +46,7 @@ public class SensibleObject : MonoBehaviour
                 if (enableTimer)
                 {
                     //Debug.Log($"<color=blue> Inside Count: {handleSensation.activeTriggerObjects.Count} </color>");
-                    setupPScene.startTimer = true;
+                    trainingManager.startTimer = true;
                 }
             }
 

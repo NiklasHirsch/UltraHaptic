@@ -59,7 +59,6 @@ public class SetupPhysicalStateScene : MonoBehaviour
                 sceneLoader.LoadQuestionniareScene();
             }
         }
-        
     }
 
     private void SetupSceneElements()
