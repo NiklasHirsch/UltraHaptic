@@ -62,6 +62,7 @@ public class HandleSensation : MonoBehaviour
     [NonSerialized] public bool startTimer = false;
 
     [SerializeField] private StudySceneLoader sceneLoader;
+    [SerializeField] public ScriptableStudyManager studyManager;
 
     [Header("Collision Settings")]
     public CollisionToSensation collisionToSensation;

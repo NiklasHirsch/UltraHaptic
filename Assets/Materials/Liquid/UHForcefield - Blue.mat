@@ -87,7 +87,7 @@ Material:
     - _Metallic: 0
     - _Mode: 3
     - _OcclusionStrength: 1
-    - _Opacity: 0.117
+    - _Opacity: 0
     - _Parallax: 0.02
     - _RefractionIntensity: 0.035
     - _RimPower: 0.261
@@ -100,6 +100,6 @@ Material:
     - _Color: {r: 0, g: 1, b: 0.8595507, a: 0.29411766}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 0, g: 1, b: 0.8705883, a: 1}
-    - _node_6138: {r: 1, g: 1, b: 1, a: 1}
-    - _node_664: {r: 0.60754716, g: 0.8059784, b: 1, a: 0.39215687}
+    - _node_6138: {r: 1, g: 1, b: 1, a: 0.29803923}
+    - _node_664: {r: 0.09788179, g: 0.27409422, b: 0.4433962, a: 0.07058824}
   m_BuildTextureStacks: []

@@ -434,8 +434,27 @@ public class ScriptableStudyManager : ScriptableObject
             returnString += "1";
         }
 
-        // in trial block time of combination 1st time = 1 .... 5th time = 5;
-        returnString += CountOccurrencesUpToIndex(trialSolidConfigList, currentSceneConfig, trial - 1).ToString();
+        var count = "0";
+        switch (block)
+        {
+            case PhysicalState.Solid:
+                // in trial block time of combination 1st time = 1 .... 5th time = 5;
+                count = CountOccurrencesUpToIndex(trialSolidConfigList, currentSceneConfig, trial - 1).ToString();
+                returnString += count;
+                break;
+            case PhysicalState.Liquid:
+                // in trial block time of combination 1st time = 1 .... 5th time = 5;
+                count = CountOccurrencesUpToIndex(trialLiquidConfigList, currentSceneConfig, trial - 1).ToString();
+                returnString += count;
+                break;
+            case PhysicalState.Gas:
+                // in trial block time of combination 1st time = 1 .... 5th time = 5;
+                count = CountOccurrencesUpToIndex(trialGasConfigList, currentSceneConfig, trial - 1).ToString();
+                returnString += count;
+                break;
+        }
+
+        
 
         return returnString;
     }

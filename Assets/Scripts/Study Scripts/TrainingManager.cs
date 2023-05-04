@@ -94,6 +94,10 @@ void Update()
             case 2:
                 _questionnaireInfo.SetActive(false);
                 _trainingQuestionnaire.SetActive(false);
+
+                //Send data to stream that the expirement has started
+                DataStream.Instance.SendData("0");
+
                 _studySceneLoader.LoadNextScene();
                 break;
         }

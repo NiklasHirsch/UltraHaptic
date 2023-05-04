@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SetupPhysicalStateScene : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class SetupPhysicalStateScene : MonoBehaviour
     [SerializeField] GameObject interactionOVRRig;
 
     [SerializeField] private PhysicalState _physicalState;
+
+    [SerializeField] private RetractArea _retractArea;
+    private bool handsWereOutsideOfRetractArea = false;
     #endregion
 
     [Header("Scene Elements Settings - disbabled/enabled")]
@@ -20,9 +25,9 @@ public class SetupPhysicalStateScene : MonoBehaviour
 
     [SerializeField] private CollisionToSensation _collisionToSensation;
 
-    [SerializeField] private GameObject _blueSate;
-    [SerializeField] private GameObject _neutralSate;
-    [SerializeField] private GameObject _redSate;
+    [SerializeField] private GameObject _blueState;
+    [SerializeField] private GameObject _neutralState;
+    [SerializeField] private GameObject _redState;
 
     [Header("Timer Settings")]
     [SerializeField] private StudySceneLoader sceneLoader;
@@ -31,21 +36,61 @@ public class SetupPhysicalStateScene : MonoBehaviour
     private float timeLeft;
     [NonSerialized] public bool startTimer = false;
 
+    [Header("Info Text")]
+    [SerializeField] private TextMeshProUGUI infoText;
+    [SerializeField] private string textHands = "Retract your hands to your body please.";
+    [SerializeField] private string textInteract = "Interact with the solid cube and try to get a sensation.";
+
     private (ColorSelection, bool) sceneConfig;
+
+    private bool startWithCheck = false;
 
     void Start()
     {
         sceneConfig = _studyManager.GetCurrentSceneConfig(_physicalState);
 
+        infoText.text = textHands;
+
         // Log state to have in in the console
         Debug.Log($"<color=yellow> Started - ID: {_studyManager.GetUniqueID()},  Block: {_studyManager.currentParticipantList[_studyManager.currentStudyBlock]}, Trial: {_studyManager.currentStudyBlock * 30 + _studyManager.trial}, Config: {sceneConfig} </color>");
-
+        SetAllStatesOff();
         SetupSceneElements();
+
+        StartCoroutine(WaitForCheck());
 
         timeLeft = maxTime;
     }
 
     void Update()
+    {
+        if (startWithCheck)
+        {
+            RetractCheckSetup();
+        }
+
+        TimerFunction();
+    }
+    IEnumerator WaitForCheck()
+    {
+        yield return new WaitForSeconds(0.2f);
+        startWithCheck = true;
+        yield return null;
+    }
+
+    private void RetractCheckSetup()
+    {
+        if (!handsWereOutsideOfRetractArea)
+        {
+            if (_retractArea.IsNotColliding)
+            {
+                _retractArea.GetComponent<MeshRenderer>().enabled = false;
+                infoText.text = textInteract;
+                handsWereOutsideOfRetractArea = true;
+                SetupColors();
+            }
+        }
+    }
+    private void TimerFunction()
     {
         if (startTimer)
         {
@@ -61,13 +106,20 @@ public class SetupPhysicalStateScene : MonoBehaviour
         }
     }
 
+    private void SetAllStatesOff()
+    {
+        _blueState.SetActive(false);
+        _neutralState.SetActive(false);
+        _redState.SetActive(false);
+    }
+
     private void SetupSceneElements()
     {
         SetupOVRPosition();
 
         SetupHaptics();
 
-        SetupColors();
+        //RetractCheckSetup();
     }
 
     private void SetupOVRPosition()
@@ -82,9 +134,9 @@ public class SetupPhysicalStateScene : MonoBehaviour
     private void SetupColors()
     {
         // setup colors
-        _blueSate.SetActive(sceneConfig.Item1 == ColorSelection.Blue);
-        _neutralSate.SetActive(sceneConfig.Item1 == ColorSelection.Neutral);
-        _redSate.SetActive(sceneConfig.Item1 == ColorSelection.Red);
+        _blueState.SetActive(sceneConfig.Item1 == ColorSelection.Blue);
+        _neutralState.SetActive(sceneConfig.Item1 == ColorSelection.Neutral);
+        _redState.SetActive(sceneConfig.Item1 == ColorSelection.Red);
     }
 
     private void SetupHaptics(){
@@ -102,12 +154,13 @@ public class SetupPhysicalStateScene : MonoBehaviour
 
             // disable Line Renderer and path points
             Transform collisonPoints = _hapticElements.transform.Find("CollisonPoints");
+            /*
             LineRenderer lineRenderer = collisonPoints.gameObject.GetComponent<LineRenderer>();
             lineRenderer.enabled = addHaptics;
             foreach (Transform child in collisonPoints)
             {
                 child.gameObject.SetActive(addHaptics);
-            }
+            }*/
         }
 
         // ultrahaptics Model

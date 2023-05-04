@@ -16,8 +16,17 @@ public class SensibleObject : MonoBehaviour
         {
             if (handleSensation.activeTriggerObjects.Count == 0)
             {
-                // LSL send data
-                DataStream.Instance.SendData();
+                if(DataStream.Instance != null)
+                {
+                    // LSL send data
+                    string dataString = handleSensation.studyManager.GetUniqueID();
+                    // remove last character
+                    dataString = dataString.Substring(0, dataString.Length - 1);
+                    DataStream.Instance.SendData(dataString);
+                } else if (TestStream.Instance != null)
+                {
+                    TestStream.Instance.SendData("2");
+                }
 
                 // start timer
                 if (enableTimer)

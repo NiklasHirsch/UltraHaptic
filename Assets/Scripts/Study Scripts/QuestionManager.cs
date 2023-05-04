@@ -166,7 +166,7 @@ public class QuestionManager : MonoBehaviour
             var trial = _studyManager.currentStudyBlock * 30 + _studyManager.trial;
             var haptic = _studyManager.currentSceneConfig.Item2;
             var color = _studyManager.currentSceneConfig.Item1;
-            _studyManager.AppendCSVLine($"{uniqueID}{_studyManager._dataSeperator}{block}{_studyManager._dataSeperator}{trial}{_studyManager._dataSeperator}{haptic}{_studyManager._dataSeperator}{color}{_studyManager._dataSeperator}{q1AnswerNum}, {q1Answer}{_studyManager._dataSeperator}{q2AnswerNum}, {q2Answer}{_studyManager._dataSeperator}{_studyManager.participantNumber}");
+            _studyManager.AppendCSVLine($"{uniqueID}{_studyManager._dataSeperator}{block}{_studyManager._dataSeperator}{trial}{_studyManager._dataSeperator}{haptic}{_studyManager._dataSeperator}{color}{_studyManager._dataSeperator}{q1AnswerNum}{_studyManager._dataSeperator}{q2AnswerNum}{_studyManager._dataSeperator}{_studyManager.participantNumber}");
 
             _studySceneLoader.LoadNextScene();
         }

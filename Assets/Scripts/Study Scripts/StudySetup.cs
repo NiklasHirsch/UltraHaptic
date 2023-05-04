@@ -69,7 +69,17 @@ public class StudySetup : MonoBehaviour
         _studyManager.SetupWriter();
 
         if(_studyManager.startWithStep > 0)
-        {
+        {            
+            if (DataStream.Instance != null)
+            {
+                //Send data to stream that the expirement has started
+                DataStream.Instance.SendData("0");
+            }
+            else if (TestStream.Instance != null)
+            {
+                TestStream.Instance.SendData("0");
+            }
+
             LoadSceneOfStep(_studyManager.startWithStep);
         }
     }

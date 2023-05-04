@@ -24,12 +24,12 @@ public class DataStream : Singleton<DataStream>
         outlet = new StreamOutlet(streamInfo);
     }
     #endregion
-    public void SendData()
+    public void SendData(string dataText)
     {
         // LSL send data
         if (outlet != null)
         {
-            sample[0] = "TriggerEnter " + gameObject.GetInstanceID();
+            sample[0] = dataText;
             outlet.push_sample(sample);
         }
     }
