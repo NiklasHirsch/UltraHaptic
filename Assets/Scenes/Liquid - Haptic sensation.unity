@@ -613,7 +613,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Interact with the liquid and try to get a sensation.
+  m_text: Interact please.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8f5aeb9c6de7614db2631011b869bc3, type: 2}
   m_sharedMaterial: {fileID: -5839354330806206608, guid: b8f5aeb9c6de7614db2631011b869bc3, type: 2}
@@ -1349,8 +1349,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.3}
-  m_SizeDelta: {x: 560, y: 60}
+  m_AnchoredPosition: {x: 0, y: 0.15}
+  m_SizeDelta: {x: 450, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &214072747
 GameObject:
@@ -19052,7 +19052,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh453278
+  m_Name: pb_Mesh328502
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -33836,10 +33836,10 @@ MonoBehaviour:
   _redState: {fileID: 96530376}
   sceneLoader: {fileID: 1478176907}
   timerBar: {fileID: 300757013}
-  maxTime: 5
+  maxTime: 3
   infoText: {fileID: 31424867}
   textHands: Retract your hands to your body please.
-  textInteract: Interact with the liquid and try to get a sensation.
+  textInteract: Interact please.
 --- !u!4 &1478176906
 Transform:
   m_ObjectHideFlags: 0
@@ -56917,7 +56917,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1864967301}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.0135, z: -0.2011}
+  m_LocalPosition: {x: 0, y: -0.0135, z: -0.18}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -56931,7 +56931,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh453184
+  m_Name: pb_Mesh328408
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

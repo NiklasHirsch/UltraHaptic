@@ -9951,6 +9951,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3598428749584601637, guid: 3e6ed523f0886314981000640a5423d5, type: 3}
   m_PrefabInstance: {fileID: 887265882}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &894737171 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1853658143522248169, guid: 2b6e6cbcc1b65394c9ba74a25258fcc1, type: 3}
+  m_PrefabInstance: {fileID: 1285443501}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &905833827
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10394,7 +10399,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &942422560
 MonoBehaviour:
@@ -10455,7 +10460,7 @@ MonoBehaviour:
   _trainingQuestionnaire: {fileID: 1728996415}
   _trainingQuestionBlock1: {fileID: 966266512}
   _trainingQuestionBlock2: {fileID: 575661647}
-  _ultrahapticsModel: {fileID: 1790815811}
+  _ultrahapticsModel: {fileID: 894737171}
   sceneLoader: {fileID: 942422561}
   timerBar: {fileID: 295526258}
   maxTime: 5
@@ -20885,11 +20890,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!1 &1790815811 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1853658143522248169, guid: 2b6e6cbcc1b65394c9ba74a25258fcc1, type: 3}
-  m_PrefabInstance: {fileID: 4022475768386646919}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1791402463
 GameObject:
   m_ObjectHideFlags: 0
@@ -25769,7 +25769,7 @@ Transform:
   - {fileID: 887265883}
   - {fileID: 1204818185}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2140391437
 MonoBehaviour:
