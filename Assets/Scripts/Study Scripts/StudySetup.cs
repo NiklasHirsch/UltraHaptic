@@ -33,12 +33,14 @@ public enum AnswerTypeQ1
 public enum AnswerTypeQ2
 {
     VeryInconsistent = 0,
-    I2 = 1,
-    I1 = 2,
-    Neutral = 3,
-    C1 = 4,
-    C2 = 5,
-    VeryConsistent = 6
+    I3 = 1,
+    I2 = 2,
+    I1 = 3,
+    Neutral = 4,
+    C1 = 5,
+    C2 = 6,
+    C3 = 7,
+    VeryConsistent = 8
 }
 
 public class StudySetup : MonoBehaviour

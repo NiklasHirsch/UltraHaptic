@@ -16,11 +16,11 @@ MonoBehaviour:
   numberOfParticipants: 0
   startWithStep: 0
   initalTrials: 30
-  writePath: C:/Users/admin/Documents/Unity Projects/UltraHaptic/Assets/CSV/StudyData/05-05\data
-    t_12-32-17 p_5.csv
+  writePath: C:/Users/Admin/Documents/Git Projects/UltraHaptic/Assets/CSV/StudyData/05-07\data
+    t_22-12-20 p_1.csv
   _csvSubFolder: StudyData
   _csvFileName: data
-  _dataSeperator: ','
+  _dataSeperator: ;
   latinSquareList1: 000000000100000002000000
   latinSquareList2: 000000000200000001000000
   latinSquareList3: 020000000000000001000000
