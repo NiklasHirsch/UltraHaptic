@@ -14,11 +14,11 @@ public class QuestionManager : MonoBehaviour
     [Header("Question / Answer Settings")]
     [SerializeField] private List<GameObject> _questionBlocks;
 
-    public List<AnswerTypeQ1> answerTypesQ1 = new List<AnswerTypeQ1>(7);
-    public List<AnswerTypeQ2> answerTypesQ2 = new List<AnswerTypeQ2>(7);
-    public List<GameObject> answerObjects = new List<GameObject>(7);
-    public List<string> answerHeadersQ1 = new List<string>(7);
-    public List<string> answerHeadersQ2 = new List<string>(7);
+    public List<AnswerTypeQ1> answerTypesQ1 = new List<AnswerTypeQ1>(9);
+    public List<AnswerTypeQ2> answerTypesQ2 = new List<AnswerTypeQ2>(9);
+    public List<GameObject> answerObjects = new List<GameObject>(9);
+    public List<string> answerHeadersQ1 = new List<string>(9);
+    public List<string> answerHeadersQ2 = new List<string>(9);
 
     //------------ Additional Stuff -------------
 

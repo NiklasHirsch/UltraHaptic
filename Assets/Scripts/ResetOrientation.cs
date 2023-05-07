@@ -34,8 +34,8 @@ public class ResetOrientation : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-			//ResetPositionToHandsImproved();
-			ResetPositionToHandsImprovedRightHand();
+			ResetPositionToHandsImproved();
+			//ResetPositionToHandsImprovedRightHand();
         }
     }
 

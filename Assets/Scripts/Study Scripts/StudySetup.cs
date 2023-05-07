@@ -19,24 +19,26 @@ public enum PhysicalState
 
 public enum AnswerTypeQ1
 {
-    FullyDisagree,
-    Disagree,
-    PartialDisagree,
+    VeryCold,
+    Cold,
+    Cool,
+    SlightlyCool,
     Neutral,
-    PartialAgree,
-    Agree,
-    FullyAgree
+    SlightlyWarm,
+    Warm,
+    Hot,
+    VeryHot
 }
 
 public enum AnswerTypeQ2
 {
-    Colder = 0,
-    C2 = 1,
-    C1 = 2,
+    VeryInconsistent = 0,
+    I2 = 1,
+    I1 = 2,
     Neutral = 3,
-    W1 = 4,
-    W2 = 5,
-    Warmer = 6
+    C1 = 4,
+    C2 = 5,
+    VeryConsistent = 6
 }
 
 public class StudySetup : MonoBehaviour
