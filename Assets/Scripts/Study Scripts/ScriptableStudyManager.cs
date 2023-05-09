@@ -25,6 +25,8 @@ public class ScriptableStudyManager : ScriptableObject
     // 0 = start scene, 1 = first physical state, 2 = second, 3 = third state
     [NonSerialized] public int currentStudyBlock = 0;
 
+    [NonSerialized] public bool[] ipqDone = new bool[] { false, false, false };
+
     [NonSerialized] public (ColorSelection, bool) currentSceneConfig;
 
     [NonSerialized] public Vector3 participantPos = new Vector3(0, -0.83f, -0.37f);
@@ -34,6 +36,7 @@ public class ScriptableStudyManager : ScriptableObject
     #region csv writer variables
     public StreamWriter writer;
     public string writePath;
+    public string ipqWritePath;
     public string _csvSubFolder = "TestFiles";
     public string _csvFileName = "example";
     public string _dataSeperator = ";";
@@ -241,7 +244,7 @@ public class ScriptableStudyManager : ScriptableObject
 
     #region CSV Writer
     // ----------- CSV Writer -------------
-    public void SetupWriter()
+    public void SetupWriters()
     {
         // Set the parent folder path
         string parentFolderPath = Application.dataPath + "/CSV/" + _csvSubFolder + "/";
@@ -256,8 +259,15 @@ public class ScriptableStudyManager : ScriptableObject
 
         string timeStamp = DateTime.Now.ToString("HH-mm-ss");
 
+        SetupMainCSV(folderPath, timeStamp);
+
+        SetupIpqCSV(folderPath, timeStamp);
+    }
+
+    private void SetupMainCSV(string folderPath, string timeStamp)
+    {
         // Set the file path and name
-        string fileName = _csvFileName + " t_" + timeStamp + " p_" + participantNumber + ".csv";
+        string fileName = "p_" + participantNumber + " " + _csvFileName + " t_" + timeStamp + ".csv";
         string filePath = Path.Combine(folderPath, fileName);
 
         writePath = filePath;
@@ -267,26 +277,46 @@ public class ScriptableStudyManager : ScriptableObject
 
         Debug.Log("< color =#00FF00> File created successfully. </color>");
 
-        //writer.WriteLine($"Date:{_dataSeperator}" +
-        //    $"{DateTime.Now:yyyyddHHmmss}");
-
-        //writer.WriteLine($"Participant:{_dataSeperator}" + participantNumber);
-
         // Main Line
         writer.WriteLine($"ID{_dataSeperator}Block{_dataSeperator}Trial{_dataSeperator}Haptic{_dataSeperator}Color{_dataSeperator}A1{_dataSeperator}A2{_dataSeperator}Participant number");
-       /*
-       writer.WriteLine($"B-LS Block:{_dataSeperator}" +
-           $"{latinSquareList[participantNumber - 1][0]}{_dataSeperator}" +
-           $"{latinSquareList[participantNumber - 1][1]}{_dataSeperator}" +
-           $"{latinSquareList[participantNumber - 1][2]}");
-       */
 
-       CloseWriter();
+        CloseWriter();
+    }
+
+    private void SetupIpqCSV(string folderPath, string timeStamp)
+    {
+        // Set the file path and name
+        string fileName = "p_" + participantNumber + " IPQ" + " t_" + timeStamp + ".csv";
+        string filePath = Path.Combine(folderPath, fileName);
+
+        ipqWritePath = filePath;
+
+        // Create a new file
+        writer = new StreamWriter(filePath);
+
+        Debug.Log("< color =#00FF00> IPQ file created successfully. </color>");
+
+        // Main Line
+        writer.WriteLine($"Participant number{_dataSeperator}Block{_dataSeperator}" +
+            $"A1{_dataSeperator}A2{_dataSeperator}A3{_dataSeperator}A4{_dataSeperator}A5{_dataSeperator}A6{_dataSeperator}A7{_dataSeperator}" +
+            $"A8{_dataSeperator}A9{_dataSeperator}A10{_dataSeperator}A11{_dataSeperator}A12{_dataSeperator}A13{_dataSeperator}A14{_dataSeperator}");
+
+        CloseWriter();
     }
 
     public void AppendCSVLine(string input)
     {
         writer = new StreamWriter(writePath, true);
+
+        // Write some data to the file
+        writer.WriteLine(input);
+
+        CloseWriter();
+    }
+
+    public void AppendCSVLineIPQ(string input)
+    {
+        writer = new StreamWriter(ipqWritePath, true);
 
         // Write some data to the file
         writer.WriteLine(input);
@@ -316,40 +346,6 @@ public class ScriptableStudyManager : ScriptableObject
     }
     #endregion
 
-    /*
-    public (ColorSelection, bool) GetRandomElementOfTrialList(PhysicalState state)
-    {
-        try
-        {
-            var count = trialSolidConfigList.Count;
-            var last = count - 1;
-
-            switch (state)
-            {
-                case PhysicalState.Solid:
-                    var indexS = UnityEngine.Random.Range(0, trialSolidConfigList.Count - 1);
-                    var elementS = trialSolidConfigList[indexS];
-                    trialSolidConfigList.RemoveAt(indexS);
-                    return elementS;
-                case PhysicalState.Liquid:
-                    var indexL = UnityEngine.Random.Range(0, trialLiquidConfigList.Count - 1);
-                    var elementL = trialLiquidConfigList[indexL];
-                    trialSolidConfigList.RemoveAt(indexL);
-                    return elementL;
-                case PhysicalState.Gas:
-                    var indexG = UnityEngine.Random.Range(0, trialGasConfigList.Count - 1);
-                    var elementG = trialGasConfigList[indexG];
-                    trialSolidConfigList.RemoveAt(indexG);
-                    return elementG;
-                default:
-                    return (ColorSelection.Blue, true);
-            }
-        } catch (IndexOutOfRangeException ex) {
-            Debug.LogError(ex);
-            return (ColorSelection.Blue, true);
-        }
-    }*/
-
     public void SetupRandomizedTrialOrder(List<(ColorSelection, bool)> trialList)
     {
         var count = trialList.Count;
@@ -365,6 +361,7 @@ public class ScriptableStudyManager : ScriptableObject
 
     public (ColorSelection, bool) GetCurrentSceneConfig(PhysicalState physicalState)
     {
+        Debug.Log($"<color=purple> GetSC - Block: {currentStudyBlock}, Trial: {trial} </color>");
         int currentTrial = trial - 1;
         (ColorSelection, bool) config;
         switch (physicalState)

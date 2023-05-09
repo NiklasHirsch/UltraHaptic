@@ -27,6 +27,8 @@ public class StudySceneLoader : MonoBehaviour
     [SerializeField]
     private string _endSceneName = "End Scene";
 
+    private string _ipqSceneName = "IPQ Questionnaire Scene";
+
     private void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -80,11 +82,22 @@ public class StudySceneLoader : MonoBehaviour
                 if (_studyManager.trial < _studyManager.initalTrials)
                 {
                     _studyManager.trial += 1;
+
+                    //Debug.Log($"<color=purple> Block: {_studyManager.currentStudyBlock}, Trial: {_studyManager.trial} </color>");
                 }
                 else
                 {
-                    _studyManager.currentStudyBlock += 1;
-                    _studyManager.trial = 0;
+                    Debug.Log($"<color=turquoise> IPQ: {_studyManager.ipqDone[_studyManager.currentStudyBlock]} Block: {_studyManager.currentStudyBlock}, Trial: {_studyManager.trial} </color>");
+                    if (!_studyManager.ipqDone[_studyManager.currentStudyBlock])
+                    {
+                        _studyManager.ipqDone[_studyManager.currentStudyBlock] = true;
+                        SceneManager.LoadSceneAsync(_ipqSceneName, LoadSceneMode.Single);
+                        return;
+                    } else
+                    {
+                        _studyManager.currentStudyBlock += 1;
+                        _studyManager.trial = 1;
+                    }
                 }
             }
 
@@ -132,7 +145,7 @@ public class StudySceneLoader : MonoBehaviour
         Debug.Log($"<color=blue> Jumped backward trial: {_studyManager.trial}</color>");
         
 
-        if (SceneManager.GetActiveScene().name != _questionnaireSceneName)
+        if (SceneManager.GetActiveScene().name != _questionnaireSceneName && SceneManager.GetActiveScene().name != _ipqSceneName)
         {
             if (_studyManager.trial == 0 && _studyManager.currentStudyBlock > 0)
             {
@@ -155,17 +168,6 @@ public class StudySceneLoader : MonoBehaviour
         }
         else
         {
-            /*
-            if (_studyManager.trial == 0 && _studyManager.currentStudyBlock > 0)
-            {
-                _studyManager.currentStudyBlock -= 1;
-                _studyManager.trial = _studyManager.initalTrials - 1;
-            }
-            else
-            {
-                _studyManager.trial -= 1;
-            }*/
-
             LoadNextScene(false);
         }
     }

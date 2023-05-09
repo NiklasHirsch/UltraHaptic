@@ -27008,7 +27008,7 @@ MonoBehaviour:
   _redState: {fileID: 477928630}
   sceneLoader: {fileID: 1234677738}
   timerBar: {fileID: 1922867038}
-  maxTime: 3
+  maxTime: 5
   infoText: {fileID: 1285882109}
   textHands: Retract your hands to your body please.
   textInteract: Interact please.

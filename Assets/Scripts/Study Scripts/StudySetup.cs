@@ -64,13 +64,13 @@ public class StudySetup : MonoBehaviour
         _welcomeparticipantText.text += $" {_studyManager.participantNumber}:";
 
         _studyManager.currentStudyBlock = 0;
-        _studyManager.trial = 0;//_studyManager.initalTrials;
+        _studyManager.trial = 0;
 
         _studyManager.SetupLatinSquareList();
 
         _studyManager.SetupParticipantList();
 
-        _studyManager.SetupWriter();
+        _studyManager.SetupWriters();
 
         if(_studyManager.startWithStep > 0)
         {            
@@ -111,8 +111,11 @@ public class StudySetup : MonoBehaviour
 
     private void LoadSceneOfStep(int step)
     {
-        _studyManager.currentStudyBlock = Mathf.FloorToInt(step / _studyManager.initalTrials);// + 1;
-        _studyManager.trial = (step % _studyManager.initalTrials) - 1;
+        _studyManager.currentStudyBlock = Mathf.FloorToInt((step - 1) / _studyManager.initalTrials);
+        _studyManager.trial = ((step - 1) % _studyManager.initalTrials);
+
+        Debug.Log($"<color=purple> Setup - Block: {_studyManager.currentStudyBlock}, Trial: {_studyManager.trial} </color>");
+
         _sceneLoader.LoadNextScene();
     }
 
