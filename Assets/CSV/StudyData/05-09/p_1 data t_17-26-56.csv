@@ -1,0 +1,7 @@
+ID;Block;Trial;Haptic;Color;A1;A2;Participant number
+2315;Liquid;59;False;Red;2;6;1
+2115;Liquid;60;False;Blue;4;8;1
+3211;Gas;61;False;Neutral;4;5;1
+3121;Gas;62;True;Blue;3;7;1
+3111;Gas;63;False;Blue;4;5;1
+3321;Gas;64;True;Red;7;8;1

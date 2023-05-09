@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   participantNumber: 1
   numberOfParticipants: 0
-  startWithStep: 60
+  startWithStep: 89
   initalTrials: 30
-  writePath: E:/Github Projects/UltraHaptic/Assets/CSV/StudyData/05-09\p_1 data t_17-18-34.csv
+  writePath: E:/Github Projects/UltraHaptic/Assets/CSV/StudyData/05-09\p_1 data t_17-32-46.csv
   ipqWritePath: E:/Github Projects/UltraHaptic/Assets/CSV/StudyData/05-09\p_1 IPQ
-    t_17-18-34.csv
+    t_17-32-46.csv
   _csvSubFolder: StudyData
   _csvFileName: data
   _dataSeperator: ;
