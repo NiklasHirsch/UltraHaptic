@@ -127,7 +127,6 @@ public class IPQSceneManager : MonoBehaviour
     #region submit selection
     public void SubmitAnswers()
     {
-
         var block = _studyManager.currentParticipantList[_studyManager.currentStudyBlock];
         string csvString = $"{_studyManager.participantNumber}{_studyManager._dataSeperator}{block}{_studyManager._dataSeperator}";
 

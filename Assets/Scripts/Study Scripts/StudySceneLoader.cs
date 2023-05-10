@@ -38,18 +38,33 @@ public class StudySceneLoader : MonoBehaviour
             {
                 LoadNextScene();
             }
-            else if (SceneManager.GetActiveScene().name != _questionnaireSceneName && SceneManager.GetActiveScene().name != _endSceneName)
+            else if (SceneManager.GetActiveScene().name != _questionnaireSceneName && SceneManager.GetActiveScene().name != _endSceneName && SceneManager.GetActiveScene().name != _ipqSceneName)
             {
                 LoadQuestionniareScene();
             }
             else
             {
-                var uniqueID = _studyManager.GetUniqueID();
-                var block = _studyManager.currentParticipantList[_studyManager.currentStudyBlock];
-                var trial = _studyManager.currentStudyBlock * 30 + _studyManager.trial;
-                var haptic = _studyManager.currentSceneConfig.Item2;
-                var color = _studyManager.currentSceneConfig.Item1;
-                _studyManager.AppendCSVLine($"{uniqueID}{_studyManager._dataSeperator}{block}{_studyManager._dataSeperator}{trial}{_studyManager._dataSeperator}{haptic}{_studyManager._dataSeperator}{color}{_studyManager._dataSeperator}skipped{_studyManager._dataSeperator}skipped{_studyManager._dataSeperator}{_studyManager.participantNumber}");
+                // questionnaire scene
+                if(SceneManager.GetActiveScene().name == _questionnaireSceneName)
+                {
+                    var uniqueID = _studyManager.GetUniqueID();
+                    var block = _studyManager.currentParticipantList[_studyManager.currentStudyBlock];
+                    var trial = _studyManager.currentStudyBlock * 30 + _studyManager.trial;
+                    var haptic = _studyManager.currentSceneConfig.Item2;
+                    var color = _studyManager.currentSceneConfig.Item1;
+                    _studyManager.AppendCSVLine($"{uniqueID}{_studyManager._dataSeperator}{block}{_studyManager._dataSeperator}{trial}{_studyManager._dataSeperator}{haptic}{_studyManager._dataSeperator}{color}{_studyManager._dataSeperator}skipped{_studyManager._dataSeperator}skipped{_studyManager._dataSeperator}{_studyManager.participantNumber}");
+                } 
+                // IPQ Scene
+                else
+                {
+                    var block = _studyManager.currentParticipantList[_studyManager.currentStudyBlock];
+                    string csvString = $"{_studyManager.participantNumber}{_studyManager._dataSeperator}{block}{_studyManager._dataSeperator}";
+                    for(int i = 0; i < 14; i++)
+                    {
+                        csvString += $"skipped{_studyManager._dataSeperator}";
+                    }
+                    _studyManager.AppendCSVLineIPQ(csvString);
+                }
 
                 LoadNextScene();
             }
@@ -73,6 +88,20 @@ public class StudySceneLoader : MonoBehaviour
             Debug.LogError("Error loading scene: " + ex.Message);
         }
     }
+
+    public void LoadIPQScene()
+    {
+        try
+        {
+            SceneManager.LoadSceneAsync(_ipqSceneName, LoadSceneMode.Single);
+
+        }
+        catch (ArgumentException ex)
+        {
+            Debug.LogError("Error loading scene: " + ex.Message);
+        }
+    }
+
     public void LoadNextScene(bool changeTrials = true)
     {
         try
@@ -91,7 +120,7 @@ public class StudySceneLoader : MonoBehaviour
                     if (!_studyManager.ipqDone[_studyManager.currentStudyBlock])
                     {
                         _studyManager.ipqDone[_studyManager.currentStudyBlock] = true;
-                        SceneManager.LoadSceneAsync(_ipqSceneName, LoadSceneMode.Single);
+                        LoadIPQScene();
                         return;
                     } else
                     {
@@ -131,43 +160,80 @@ public class StudySceneLoader : MonoBehaviour
 
     public void LoadPreviousScene()
     {
+        var currentScene = SceneManager.GetActiveScene().name;
+
         // if started with a inital step other than 0 return if first loaded trial
-        if (_studyManager.startWithStep > 0 && _studyManager.startWithStep == _studyManager.trial - 1 && SceneManager.GetActiveScene().name != _questionnaireSceneName)
+        if (_studyManager.startWithStep > 0 && _studyManager.startWithStep == _studyManager.trial - 1 && currentScene != _questionnaireSceneName)
         {
             return;
         }
         // return if start scene
-        if (SceneManager.GetActiveScene().name == _startSceneName)
+        if (currentScene == _startSceneName)
         {
             return;
         }
 
-        Debug.Log($"<color=blue> Jumped backward trial: {_studyManager.trial}</color>");
-        
-
-        if (SceneManager.GetActiveScene().name != _questionnaireSceneName && SceneManager.GetActiveScene().name != _ipqSceneName)
+        // if started with step and it is the first loaded step no more going back allowed
+        if (_studyManager.startWithStep > 0 && currentScene != _questionnaireSceneName && currentScene != _ipqSceneName)
         {
-            if (_studyManager.trial == 0 && _studyManager.currentStudyBlock > 0)
+            if (_studyManager.trial == ((_studyManager.startWithStep) % _studyManager.initalTrials) && _studyManager.currentStudyBlock == Mathf.FloorToInt((_studyManager.startWithStep - 1) / _studyManager.initalTrials))
             {
-                _studyManager.currentStudyBlock -= 1;
-                _studyManager.trial = _studyManager.initalTrials - 1;
+                Debug.Log($"<color=red> Reached initial  start with setp trial</color>");
+                return;
             }
+        }
+
+        Debug.Log($"<color=blue> Jumped backward trial: {_studyManager.trial}</color>");
+
+        // if the current scene is not a question/IPQ/End scene
+        if (currentScene != _questionnaireSceneName)
+        {
+            // first of next block but not the first block
+            if (_studyManager.trial == 0)
+            {
+                // later block
+                if (_studyManager.currentStudyBlock > 0)
+                {
+                    Debug.Log($"<color=white> Load IPQ </color>");
+                    _studyManager.currentStudyBlock -= 1;
+                    _studyManager.trial = _studyManager.initalTrials - 1;
+
+                    // IPQ stuff
+                    _studyManager.ipqDone[_studyManager.currentStudyBlock] = false;
+                    _studyManager.DeleteLastCSVLineIPQ();
+                    LoadIPQScene();
+                    return;
+                }
+                // fist trial
+                else
+                {
+                    Debug.Log($"<color=white> Load Start </color>");
+                    _studyManager.trial -= 1;
+                    LoadStartScene();
+                    return;
+                }
+            }
+            // not first trial or IPQ -> load last questionnaire scene 
             else
             {
-                _studyManager.trial -= 1;
-            }
+                // current scene 
+                if(currentScene != _ipqSceneName)
+                {
+                    _studyManager.trial -= 1;
+                } else
+                {
+                    _studyManager.ipqDone[_studyManager.currentStudyBlock] = false;
+                }
 
-            if (_studyManager.trial == 0 && _studyManager.currentStudyBlock == 0)
-            {
-                LoadStartScene();
-            } else
-            {
+                Debug.Log($"<color=white> Load Questionnaire </color>");
                 _studyManager.DeleteLastCSVLine();
                 LoadQuestionniareScene();
+                return;
             }
         }
         else
         {
+            Debug.Log($"<color=white> Load Interaction scene </color>");
             LoadNextScene(false);
         }
     }

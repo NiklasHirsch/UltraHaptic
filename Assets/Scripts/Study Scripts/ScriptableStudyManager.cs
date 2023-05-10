@@ -324,6 +324,13 @@ public class ScriptableStudyManager : ScriptableObject
         CloseWriter();
     }
 
+    public void DeleteLastCSVLineIPQ()
+    {
+        var linesList = File.ReadAllLines(ipqWritePath).ToList();
+        linesList.RemoveAt(linesList.Count - 1);
+        File.WriteAllLines(writePath, linesList.ToArray());
+    }
+
     public void DeleteLastCSVLine()
     {
         var linesList = File.ReadAllLines(writePath).ToList();
@@ -389,6 +396,7 @@ public class ScriptableStudyManager : ScriptableObject
     {
         string returnString = "";
         // solid = 1; liquid = 2; gas = 3;
+        //Debug.Log($"<color=yellow> UniqueID - studyBlock: {currentStudyBlock}</color>");
         var block = currentParticipantList[currentStudyBlock];
 
         switch (block)
