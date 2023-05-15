@@ -87,24 +87,8 @@ public class HandleSensation : MonoBehaviour
                 new Vector3(0,0,0),
             };
 
-    void Start()
-    {
-        //timerBar = GetComponent<Image>();
-        //timeLeft = maxTime;
-    }
-
     void Update()
     {
-        /*
-        if (timeLeft > 0)
-        {
-            Debug.Log($"<color=green>Time Left: {timeLeft} </color>");
-            timeLeft -= Time.deltaTime;
-            timerBar.fillAmount = timeLeft / maxTime;
-        } else {
-            NextSceneAfteTimer();
-        }*/
-
         UpdateSensation();
     }
 
