@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: ScriptableStudyManager
   m_EditorClassIdentifier: 
   participantNumber: 3
-  numberOfParticipants: 0
+  numberOfParticipants: 30
   startWithStep: 0
   initalTrials: 30
-  writePath: E:/Github Projects/UltraHaptic/Assets/CSV/StudyData/05-10\p_3 data t_13-57-05.csv
-  ipqWritePath: E:/Github Projects/UltraHaptic/Assets/CSV/StudyData/05-10\p_3 IPQ
-    t_13-57-05.csv
+  writePath: C:/Users/Admin/Documents/Git Projects/UltraHaptic/Assets/CSV/StudyData/05-10\p_3
+    data t_17-41-20.csv
+  ipqWritePath: C:/Users/Admin/Documents/Git Projects/UltraHaptic/Assets/CSV/StudyData/05-10\p_3
+    IPQ t_17-41-20.csv
   _csvSubFolder: StudyData
   _csvFileName: data
   _dataSeperator: ;
