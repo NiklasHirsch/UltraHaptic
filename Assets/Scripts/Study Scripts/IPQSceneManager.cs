@@ -90,7 +90,7 @@ public class IPQSceneManager : MonoBehaviour
 
     private void ChangeQuestionAndTitle()
     {
-        _questionTitle.text = $"IPQ - Question {_currentQuestion}:";
+        _questionTitle.text = $"Question {_currentQuestion}:";
         _questionQuestion.text = _allQuestions[_currentQuestion - 1];
     }
 
