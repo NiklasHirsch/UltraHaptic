@@ -29,7 +29,7 @@ ID;Block;Trial;Haptic;Color;A1;A2;Participant number
 1215;Solid;28;False;Neutral;4;0;13
 1325;Solid;29;True;Red;4;5;13
 1225;Solid;30;True;Neutral;3;5;13
-2311;Liquid;31;False;Red;4;4;13
+2311;Liquid;31;False;Red;4;1;13
 2321;Liquid;32;True;Red;4;3;13
 2221;Liquid;33;True;Neutral;4;2;13
 2121;Liquid;34;True;Blue;3;3;13
@@ -48,7 +48,7 @@ ID;Block;Trial;Haptic;Color;A1;A2;Participant number
 2111;Liquid;47;False;Blue;4;0;13
 2315;Liquid;48;False;Red;4;0;13
 2213;Liquid;49;False;Neutral;4;1;13
-2214;Liquid;50;False;Neutral;4;4;13
+2214;Liquid;50;False;Neutral;4;1;13
 2125;Liquid;51;True;Blue;4;3;13
 2215;Liquid;52;False;Neutral;4;1;13
 2112;Liquid;53;False;Blue;4;1;13
@@ -61,7 +61,7 @@ ID;Block;Trial;Haptic;Color;A1;A2;Participant number
 2225;Liquid;60;True;Neutral;4;3;13
 3321;Gas;61;True;Red;5;5;13
 3111;Gas;62;False;Blue;4;1;13
-3112;Gas;63;False;Blue;5;5;13
+3112;Gas;63;False;Blue;5;1;13
 3113;Gas;64;False;Blue;5;1;13
 3121;Gas;65;True;Blue;4;5;13
 3122;Gas;66;True;Blue;3;4;13

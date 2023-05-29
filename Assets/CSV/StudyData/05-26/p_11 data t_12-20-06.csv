@@ -1,15 +1,15 @@
 ID;Block;Trial;Haptic;Color;A1;A2;Participant number
 2211;Liquid;1;False;Neutral;4;0;11
-2221;Liquid;2;True;Neutral;6;8;11
+2221;Liquid;2;True;Neutral;6;5;11
 2311;Liquid;3;False;Red;4;0;11
-2222;Liquid;4;True;Neutral;5;8;11
+2222;Liquid;4;True;Neutral;5;7;11
 2212;Liquid;5;False;Neutral;4;0;11
 2312;Liquid;6;False;Red;4;0;11
-2121;Liquid;7;True;Blue;5;0;11
-2321;Liquid;8;True;Red;6;8;11
-2122;Liquid;9;True;Blue;3;0;11
+2121;Liquid;7;True;Blue;5;2;11
+2321;Liquid;8;True;Red;6;6;11
+2122;Liquid;9;True;Blue;3;1;11
 2111;Liquid;10;False;Blue;4;0;11
-2112;Liquid;11;False;Blue;4;0;11
+2112;Liquid;11;False;Blue;4;1;11
 2213;Liquid;12;False;Neutral;3;0;11
 2322;Liquid;13;True;Red;6;6;11
 2123;Liquid;14;True;Blue;3;5;11

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e09b34a4f3eef4686c249e60cf509c, type: 3}
   m_Name: ScriptableStudyManager
   m_EditorClassIdentifier: 
-  participantNumber: 13
+  participantNumber: 15
   numberOfParticipants: 0
   startWithStep: 0
   initalTrials: 30
-  writePath: C:/Users/Admin/Documents/Git Projects/UltraHaptic/Assets/CSV/StudyData/05-26\p_13
-    data t_16-57-11.csv
-  ipqWritePath: C:/Users/Admin/Documents/Git Projects/UltraHaptic/Assets/CSV/StudyData/05-26\p_13
-    IPQ t_16-57-11.csv
+  writePath: C:/Users/Admin/Documents/Git Projects/UltraHaptic/Assets/CSV/StudyData/05-29\p_14
+    data t_09-49-19.csv
+  ipqWritePath: C:/Users/Admin/Documents/Git Projects/UltraHaptic/Assets/CSV/StudyData/05-29\p_14
+    IPQ t_09-49-19.csv
   _csvSubFolder: StudyData
   _csvFileName: data
   _dataSeperator: ;
